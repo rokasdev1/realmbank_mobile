@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "690897518075",
+    "project_id": "realmbank-911a3",
+    "storage_bucket": "realmbank-911a3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:690897518075:android:ca837236e09f626a745f5e",
+        "android_client_info": {
+          "package_name": "com.realm.bank"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMJjwuZnwowypGmxhpM6Vt_J8TbrWgWj4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
