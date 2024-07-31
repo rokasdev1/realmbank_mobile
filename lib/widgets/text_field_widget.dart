@@ -63,7 +63,9 @@ class _TextFieldwidgetState extends State<TextFieldwidget> {
                   controller: widget.controller,
                   style: const TextStyle(fontWeight: FontWeight.bold),
                   obscureText: isHidden,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
+                    hintText: 'Your ${widget.label.toLowerCase()}',
+                    hintStyle: const TextStyle(color: Colors.grey),
                     border: InputBorder.none,
                   ),
                 ),
