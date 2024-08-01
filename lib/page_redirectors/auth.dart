@@ -28,10 +28,6 @@ class Auth extends StatelessWidget {
           return FutureBuilder<bool>(
             future: hasFirestoreDocument(),
             builder: (context, hasFirestoreSnapshot) {
-              if (hasFirestoreSnapshot.connectionState ==
-                  ConnectionState.waiting) {
-                return const CircularProgressIndicator();
-              }
               if (hasFirestoreSnapshot.hasData &&
                   hasFirestoreSnapshot.data == true) {
                 return const HomePage();
