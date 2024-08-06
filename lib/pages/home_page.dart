@@ -10,7 +10,8 @@ import 'package:realmbank_mobile/widgets/money_widget.dart';
 import 'package:realmbank_mobile/widgets/transactions_widget.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  const HomePage({super.key, required this.user});
+  final UserClass user;
 
   @override
   Widget build(BuildContext context) {
@@ -23,52 +24,41 @@ class HomePage extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: StreamBuilder<DocumentSnapshot>(
-        stream: FirebaseFirestore.instance
-            .collection('users')
-            .doc(FirebaseAuth.instance.currentUser!.uid)
-            .snapshots(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            final userData = snapshot.data!.data() as Map<String, dynamic>;
-            final user = UserClass.fromJson(userData);
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  16.heightBox,
-                  const Text(
-                    'Total balance',
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            16.heightBox,
+            const Text(
+              'Total balance',
+              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+            ),
+            8.heightBox,
+            MoneyWidget(money: user.balance),
+            16.heightBox,
+            BigButton(
+              label: 'Send',
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SendMoneyPage(
+                      sender: user,
+                    ),
                   ),
-                  8.heightBox,
-                  MoneyWidget(money: user.balance),
-                  16.heightBox,
-                  BigButton(
-                    label: 'Send',
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => SendMoneyPage(
-                            sender: user,
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                  36.heightBox,
-                  const TransactionsWidget(),
-                ],
-              ),
-            );
-          } else {
-            return const Center(
-              child: Text('There has been an error.'),
-            );
-          }
-        },
+                );
+              },
+            ),
+            36.heightBox,
+            const Text(
+              'Transactions',
+              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+            ),
+            16.heightBox,
+            const TransactionsWidget(),
+          ],
+        ),
       ),
     );
   }

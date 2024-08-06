@@ -7,6 +7,7 @@ import 'package:realmbank_mobile/page_redirectors/login_register.dart';
 import 'package:realmbank_mobile/pages/home_page.dart';
 import 'package:realmbank_mobile/pages/intro_page.dart';
 import 'package:realmbank_mobile/pages/login_page.dart';
+import 'package:realmbank_mobile/pages/main_page.dart';
 import 'package:realmbank_mobile/pages/start_page.dart';
 
 class Auth extends StatelessWidget {
@@ -30,7 +31,7 @@ class Auth extends StatelessWidget {
             builder: (context, hasFirestoreSnapshot) {
               if (hasFirestoreSnapshot.hasData &&
                   hasFirestoreSnapshot.data == true) {
-                return const HomePage();
+                return MainPage();
               } else {
                 return const IntroPage();
               }

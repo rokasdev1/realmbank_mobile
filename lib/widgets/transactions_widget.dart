@@ -2,8 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:realmbank_mobile/models/transaction.dart';
+import 'package:realmbank_mobile/pages/transaction_details_page.dart';
 import 'package:realmbank_mobile/utils/date_converter.dart';
 import 'package:realmbank_mobile/utils/money_formatter.dart';
+import 'package:rxdart/rxdart.dart';
 
 class TransactionsWidget extends StatefulWidget {
   const TransactionsWidget({super.key});
@@ -13,51 +15,48 @@ class TransactionsWidget extends StatefulWidget {
 }
 
 class _TransactionsWidgetState extends State<TransactionsWidget> {
-  late Future<List<QueryDocumentSnapshot>> myTransactionsFuture;
   final userUID = FirebaseAuth.instance.currentUser!.uid;
 
-  @override
-  void initState() {
-    super.initState();
-    myTransactionsFuture = _fetchTransactions();
-  }
-
-  Future<List<QueryDocumentSnapshot>> _fetchTransactions() async {
-    final sentQuerySnapshot = await FirebaseFirestore.instance
+  Stream<List<QueryDocumentSnapshot>> _transactionStream() {
+    final sentQuerySnapshots = FirebaseFirestore.instance
         .collection('transactions')
         .where('senderUID', isEqualTo: userUID)
-        .get();
+        .snapshots();
 
-    final receivedQuerySnapshot = await FirebaseFirestore.instance
+    final receivedQuerySnapshots = FirebaseFirestore.instance
         .collection('transactions')
         .where('receiverUID', isEqualTo: userUID)
-        .get();
+        .snapshots();
 
-    final allTransactions = [
-      ...sentQuerySnapshot.docs,
-      ...receivedQuerySnapshot.docs
-    ];
+    return Rx.combineLatest2(sentQuerySnapshots, receivedQuerySnapshots,
+        (QuerySnapshot sentSnapshot, QuerySnapshot receivedSnapshot) {
+      final allDocuments = [
+        ...sentSnapshot.docs,
+        ...receivedSnapshot.docs,
+      ];
 
-    allTransactions.sort((a, b) {
-      final aTimestamp = (a.data())['date'] as Timestamp;
-      final bTimestamp = (b.data())['date'] as Timestamp;
-      return bTimestamp.compareTo(aTimestamp);
+      allDocuments.sort((a, b) {
+        final timestampA = a['date'] as Timestamp;
+        final timestampB = b['date'] as Timestamp;
+        return timestampB.compareTo(timestampA);
+      });
+
+      return allDocuments;
     });
-
-    return allTransactions;
   }
 
-  Future<void> _refreshTransactions() async {
-    setState(() {
-      myTransactionsFuture = _fetchTransactions();
-    });
-    await myTransactionsFuture;
+  String _sentOrReceivedFullName(TransactionModel transaction) {
+    if (transaction.senderUID == userUID) {
+      return transaction.receiverFullName;
+    } else {
+      return transaction.senderFullName;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<QueryDocumentSnapshot>>(
-      future: myTransactionsFuture,
+    return StreamBuilder<List<QueryDocumentSnapshot>>(
+      stream: _transactionStream(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const CircularProgressIndicator();
@@ -68,16 +67,25 @@ class _TransactionsWidgetState extends State<TransactionsWidget> {
         }
 
         final myTransactions = snapshot.data!;
-        return RefreshIndicator(
-          onRefresh: () => _refreshTransactions(),
-          child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: myTransactions.length,
-            itemBuilder: (context, index) {
-              final transactionData =
-                  myTransactions[index].data() as Map<String, dynamic>;
-              final transaction = TransactionModel.fromJson(transactionData);
-              return Padding(
+        return ListView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: myTransactions.length,
+          itemBuilder: (context, index) {
+            final transactionData =
+                myTransactions[index].data() as Map<String, dynamic>;
+            final transaction = TransactionModel.fromJson(transactionData);
+            return GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        TransactionDetailsPage(transaction: transaction),
+                  ),
+                );
+              },
+              child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -86,7 +94,7 @@ class _TransactionsWidgetState extends State<TransactionsWidget> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          transaction.senderFullName,
+                          _sentOrReceivedFullName(transaction),
                           style: const TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
@@ -99,9 +107,9 @@ class _TransactionsWidgetState extends State<TransactionsWidget> {
                     ),
                   ],
                 ),
-              );
-            },
-          ),
+              ),
+            );
+          },
         );
       },
     );

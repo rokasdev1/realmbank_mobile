@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:realmbank_mobile/models/transaction.dart';
 import 'package:realmbank_mobile/models/user.dart';
 import 'package:realmbank_mobile/utils/extensions.dart';
-import 'package:realmbank_mobile/utils/find_user_by_cardNum.dart';
+import 'package:realmbank_mobile/utils/find_user_utils.dart';
 import 'package:realmbank_mobile/widgets/big_button.dart';
 import 'package:realmbank_mobile/widgets/text_field_widget.dart';
 

@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:realmbank_mobile/utils/extensions.dart';
+import 'package:realmbank_mobile/utils/number_format.dart';
 
 class TextFieldwidget extends StatefulWidget {
   TextFieldwidget({
@@ -23,9 +26,8 @@ class _TextFieldwidgetState extends State<TextFieldwidget> {
 
   @override
   void initState() {
-    // TODO: implement initState
-    super.initState();
     isHidden = widget.isObscure;
+    super.initState();
   }
 
   @override
