@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:realmbank_mobile/models/user.dart';
 import 'package:realmbank_mobile/pages/home_page.dart';
+import 'package:realmbank_mobile/utils/card_number_generator.dart';
 import 'package:realmbank_mobile/utils/extensions.dart';
 import 'package:realmbank_mobile/widgets/big_button.dart';
 import 'package:realmbank_mobile/widgets/text_field_widget.dart';
@@ -27,6 +28,7 @@ class _IntroPageState extends State<IntroPage> {
         lastName: lastNameController.text,
         balance: 0,
         email: currentUser.email ?? '',
+        cardNumber: generateCardNumber(currentUser.email ?? ''),
         uid: currentUser.uid,
       );
       await createUser(newUser);

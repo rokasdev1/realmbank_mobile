@@ -3,6 +3,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:realmbank_mobile/models/transaction.dart';
 import 'package:realmbank_mobile/models/user.dart';
+import 'package:realmbank_mobile/pages/send_money_page.dart';
+import 'package:realmbank_mobile/utils/extensions.dart';
+import 'package:realmbank_mobile/widgets/big_button.dart';
+import 'package:realmbank_mobile/widgets/money_widget.dart';
+import 'package:realmbank_mobile/widgets/transactions_widget.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -10,6 +15,14 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: const Text(
+          'Home',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        centerTitle: true,
+      ),
       body: StreamBuilder<DocumentSnapshot>(
         stream: FirebaseFirestore.instance
             .collection('users')
@@ -19,35 +32,37 @@ class HomePage extends StatelessWidget {
           if (snapshot.hasData) {
             final userData = snapshot.data!.data() as Map<String, dynamic>;
             final user = UserClass.fromJson(userData);
-            return Center(
-                child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(user.balance.toString(),
-                    style: const TextStyle(fontSize: 24)),
-                ElevatedButton(
-                  onPressed: () {
-                    sendMoney(
-                      user,
-                      UserClass(
-                          name: 'meinen name',
-                          lastName: 'meneine',
-                          balance: 0,
-                          email: 'abab@abab.com',
-                          uid: 'q5EosbxT1mODVJ5RpadKq4NUGGZ2'),
-                      5.1,
-                    );
-                  },
-                  child: const Text('Send'),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    FirebaseAuth.instance.signOut();
-                  },
-                  child: const Text('Sign out'),
-                )
-              ],
-            ));
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  16.heightBox,
+                  const Text(
+                    'Total balance',
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                  ),
+                  8.heightBox,
+                  MoneyWidget(money: user.balance),
+                  16.heightBox,
+                  BigButton(
+                    label: 'Send',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SendMoneyPage(
+                            sender: user,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  36.heightBox,
+                  const TransactionsWidget(),
+                ],
+              ),
+            );
           } else {
             return const Center(
               child: Text('There has been an error.'),
