@@ -28,11 +28,14 @@ class _MainPageState extends State<MainPage> {
             if (snapshot.hasData) {
               final userData = snapshot.data!.data() as Map<String, dynamic>;
               final user = UserClass.fromJson(userData);
-              return [
-                HomePage(user: user),
-                const CardPage(),
-                const ProfilePage(),
-              ][_currentIndex];
+              return IndexedStack(
+                index: _currentIndex,
+                children: [
+                  HomePage(user: user),
+                  CardPage(user: user),
+                  ProfilePage(user: user),
+                ],
+              );
             } else {
               return const Text('Error');
             }

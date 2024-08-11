@@ -53,27 +53,33 @@ Future<void> sendMoney(UserClass sender, UserClass receiver, double amount,
   final newReceiverBalance =
       double.parse((receiver.balance + amount).toStringAsFixed(2));
 
-  await FirebaseFirestore.instance
-      .collection('users')
-      .doc(sender.uid)
-      .update({'balance': newSenderBalance});
-  log(newSenderBalance.toString());
+  if (newSenderBalance >= 0 && sender != receiver && amount > 0) {
+    try {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(sender.uid)
+          .update({'balance': newSenderBalance});
+      log(newSenderBalance.toString());
 
-  await FirebaseFirestore.instance
-      .collection('users')
-      .doc(receiver.uid)
-      .update({'balance': newReceiverBalance});
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(receiver.uid)
+          .update({'balance': newReceiverBalance});
 
-  final docTransaction =
-      FirebaseFirestore.instance.collection('transactions').doc();
-  final transaction = TransactionModel(
-    senderUID: sender.uid,
-    senderFullName: fullName(sender.name, sender.lastName),
-    receiverUID: receiver.uid,
-    receiverFullName: fullName(receiver.name, receiver.lastName),
-    description: description,
-    amount: amount,
-    date: Timestamp.now(),
-  );
-  docTransaction.set(transaction.toJson());
+      final docTransaction =
+          FirebaseFirestore.instance.collection('transactions').doc();
+      final transaction = TransactionModel(
+        senderUID: sender.uid,
+        senderFullName: fullName(sender.name, sender.lastName),
+        receiverUID: receiver.uid,
+        receiverFullName: fullName(receiver.name, receiver.lastName),
+        description: description,
+        amount: amount,
+        date: Timestamp.now(),
+      );
+      docTransaction.set(transaction.toJson());
+    } catch (e) {
+      log(e.toString());
+    }
+  }
 }

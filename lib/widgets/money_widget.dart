@@ -17,17 +17,22 @@ class MoneyWidget extends StatelessWidget {
       children: [
         const Text(
           "\$",
-          style: TextStyle(fontSize: 48, fontWeight: FontWeight.w900),
+          style: TextStyle(
+              fontSize: 48, fontWeight: FontWeight.w900, color: Colors.white),
         ),
         16.widthBox,
         Text(
           formatNumberWithCommas(parts[0]),
-          style: const TextStyle(fontSize: 48, fontWeight: FontWeight.w900),
+          style: const TextStyle(
+              fontSize: 48, fontWeight: FontWeight.w900, color: Colors.white),
         ),
         Text(
           '.${parts[1]}',
           style: const TextStyle(
-              fontSize: 30, fontWeight: FontWeight.w900, height: 1.8),
+              fontSize: 30,
+              fontWeight: FontWeight.w900,
+              height: 1.8,
+              color: Colors.white),
         ),
       ],
     );

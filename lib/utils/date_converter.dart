@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 
 String dateConvert(Timestamp timestamp) {
   final date = timestamp.toDate();
-  return "${date.year}.${date.month}.${date.day} ${date.hour}:${date.minute}";
+  return DateFormat('H:m, MMMM d').format(date);
 }

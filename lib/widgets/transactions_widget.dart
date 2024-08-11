@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:realmbank_mobile/models/transaction.dart';
 import 'package:realmbank_mobile/pages/transaction_details_page.dart';
 import 'package:realmbank_mobile/utils/date_converter.dart';
-import 'package:realmbank_mobile/utils/money_formatter.dart';
+import 'package:realmbank_mobile/utils/extensions.dart';
+import 'package:realmbank_mobile/widgets/transaction_money_widget.dart';
 import 'package:rxdart/rxdart.dart';
 
 class TransactionsWidget extends StatefulWidget {
@@ -16,6 +18,7 @@ class TransactionsWidget extends StatefulWidget {
 
 class _TransactionsWidgetState extends State<TransactionsWidget> {
   final userUID = FirebaseAuth.instance.currentUser!.uid;
+  final accentColor = const Color.fromRGBO(94, 98, 239, 1);
 
   Stream<List<QueryDocumentSnapshot>> _transactionStream() {
     final sentQuerySnapshots = FirebaseFirestore.instance
@@ -90,21 +93,35 @@ class _TransactionsWidgetState extends State<TransactionsWidget> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    Row(
                       children: [
-                        Text(
-                          _sentOrReceivedFullName(transaction),
-                          style: const TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
+                        CircleAvatar(
+                          backgroundColor: Colors.grey.shade100,
+                          radius: 25,
+                          child: Icon(
+                            Icons.send_to_mobile,
+                            color: accentColor,
+                          ),
                         ),
-                        Text(dateConvert(transaction.date)),
+                        16.widthBox,
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              _sentOrReceivedFullName(transaction),
+                              style: const TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              dateConvert(transaction.date),
+                              style: const TextStyle(color: Colors.grey),
+                            ),
+                          ],
+                        ),
                       ],
                     ),
-                    Text(
-                      moneyFormat(transaction, userUID),
-                      style: const TextStyle(fontSize: 16),
-                    ),
+                    TransactionMoneyWidget(
+                        transaction: transaction, userUID: userUID),
                   ],
                 ),
               ),

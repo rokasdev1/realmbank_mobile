@@ -22,7 +22,7 @@ class TransactionDetailsPage extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: FutureBuilder(
+      body: FutureBuilder<List<UserClass>>(
           future:
               findUsersWithUID(transaction.senderUID, transaction.receiverUID),
           builder: (context, snapshot) {
@@ -30,6 +30,7 @@ class TransactionDetailsPage extends StatelessWidget {
               return const Center(child: CircularProgressIndicator());
             }
             final sender = snapshot.data![0];
+            final isSender = transaction.senderUID == sender.uid;
             final receiver = snapshot.data![1];
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -45,9 +46,9 @@ class TransactionDetailsPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            const Text(
-                              "-",
-                              style: TextStyle(
+                            Text(
+                              isSender ? '' : '-',
+                              style: const TextStyle(
                                   fontSize: 70,
                                   fontWeight: FontWeight.w900,
                                   height: 0),
