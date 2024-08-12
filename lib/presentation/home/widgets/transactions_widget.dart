@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:realmbank_mobile/common/models/transaction.dart';
+import 'package:realmbank_mobile/data/models/transaction.dart';
 import 'package:realmbank_mobile/presentation/home/transaction_details_page.dart';
-import 'package:realmbank_mobile/utils/date_converter.dart';
-import 'package:realmbank_mobile/utils/extensions.dart';
-import 'package:realmbank_mobile/widgets/transaction_money_widget.dart';
+import 'package:realmbank_mobile/presentation/common/utils/date_converter.dart';
+import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';
+import 'package:realmbank_mobile/presentation/home/widgets/transaction_money_widget.dart';
 import 'package:rxdart/rxdart.dart';
 
 class TransactionsWidget extends StatefulWidget {
@@ -47,7 +47,7 @@ class _TransactionsWidgetState extends State<TransactionsWidget> {
     });
   }
 
-  String _sentOrReceivedFullName(TransactionModel transaction) {
+  String _sentOrReceivedFullName(RMTransaction transaction) {
     if (transaction.senderUID == userUID) {
       return transaction.receiverFullName;
     } else {
@@ -76,7 +76,7 @@ class _TransactionsWidgetState extends State<TransactionsWidget> {
           itemBuilder: (context, index) {
             final transactionData =
                 myTransactions[index].data() as Map<String, dynamic>;
-            final transaction = TransactionModel.fromJson(transactionData);
+            final transaction = RMTransaction.fromJson(transactionData);
             return GestureDetector(
               onTap: () {
                 Navigator.push(

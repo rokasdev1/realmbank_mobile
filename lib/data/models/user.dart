@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class UserClass {
+class RMUser {
   final String name;
   final String lastName;
   final double balance;
@@ -8,7 +8,7 @@ class UserClass {
   final String cardNumber;
   late String uid;
 
-  UserClass({
+  RMUser({
     required this.name,
     required this.lastName,
     required this.balance,
@@ -25,7 +25,7 @@ class UserClass {
         'uid': uid,
       };
 
-  static UserClass fromJson(Map<String, dynamic> json) => UserClass(
+  static RMUser fromJson(Map<String, dynamic> json) => RMUser(
         name: json['name'],
         lastName: json['lastName'],
         balance: (json['balance'] is int)
@@ -37,7 +37,7 @@ class UserClass {
       );
 }
 
-Future<void> createUser(UserClass user) async {
+Future<void> createUser(RMUser user) async {
   final docUser = FirebaseFirestore.instance.collection('users').doc(user.uid);
   final json = user.toJson();
   await docUser.set(json);

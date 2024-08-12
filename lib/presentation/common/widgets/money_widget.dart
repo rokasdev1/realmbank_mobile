@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:realmbank_mobile/utils/extensions.dart';
-import 'package:realmbank_mobile/utils/number_format.dart';
+import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';
+import 'package:realmbank_mobile/presentation/common/utils/number_format.dart';
 
 class MoneyWidget extends StatelessWidget {
   const MoneyWidget({super.key, required this.money});

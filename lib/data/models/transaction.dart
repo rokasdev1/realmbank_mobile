@@ -1,10 +1,10 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:realmbank_mobile/common/models/user.dart';
-import 'package:realmbank_mobile/utils/full_name.dart';
+import 'package:realmbank_mobile/data/models/user.dart';
+import 'package:realmbank_mobile/presentation/common/utils/full_name.dart';
 
-class TransactionModel {
+class RMTransaction {
   final String senderUID;
   final String senderFullName;
   final String receiverUID;
@@ -12,8 +12,9 @@ class TransactionModel {
   final String description;
   final double amount;
   final Timestamp date;
+  final String id;
 
-  TransactionModel({
+  RMTransaction({
     required this.senderUID,
     required this.senderFullName,
     required this.receiverUID,
@@ -21,6 +22,7 @@ class TransactionModel {
     required this.description,
     required this.amount,
     required this.date,
+    required this.id,
   });
 
   Map<String, dynamic> toJson() => {
@@ -31,10 +33,10 @@ class TransactionModel {
         'description': description,
         'amount': amount,
         'date': date,
+        'id': id,
       };
 
-  static TransactionModel fromJson(Map<String, dynamic> json) =>
-      TransactionModel(
+  static RMTransaction fromJson(Map<String, dynamic> json) => RMTransaction(
         senderUID: json['senderUID'],
         senderFullName: json['senderFullName'],
         receiverUID: json['receiverUID'],
@@ -42,11 +44,12 @@ class TransactionModel {
         description: json['description'],
         amount: json['amount'],
         date: json['date'],
+        id: json['id'],
       );
 }
 
-Future<void> sendMoney(UserClass sender, UserClass receiver, double amount,
-    String description) async {
+Future<void> sendMoney(
+    RMUser sender, RMUser receiver, double amount, String description) async {
   final newSenderBalance =
       double.parse((sender.balance - amount).toStringAsFixed(2));
   final newReceiverBalance =
@@ -67,7 +70,7 @@ Future<void> sendMoney(UserClass sender, UserClass receiver, double amount,
 
       final docTransaction =
           FirebaseFirestore.instance.collection('transactions').doc();
-      final transaction = TransactionModel(
+      final transaction = RMTransaction(
         senderUID: sender.uid,
         senderFullName: fullName(sender.name, sender.lastName),
         receiverUID: receiver.uid,
@@ -75,6 +78,7 @@ Future<void> sendMoney(UserClass sender, UserClass receiver, double amount,
         description: description,
         amount: amount,
         date: Timestamp.now(),
+        id: docTransaction.id,
       );
       docTransaction.set(transaction.toJson());
     } catch (e) {

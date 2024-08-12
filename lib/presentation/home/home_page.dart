@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:realmbank_mobile/common/models/user.dart';
-import 'package:realmbank_mobile/widgets/card_widget.dart';
-import 'package:realmbank_mobile/widgets/draggable_scroll_sheet.dart';
+import 'package:realmbank_mobile/data/models/user.dart';
+import 'package:realmbank_mobile/presentation/home/widgets/card_widget.dart';
+import 'package:realmbank_mobile/presentation/home/widgets/draggable_scroll_sheet.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.user});
-  final UserClass user;
+  final RMUser user;
 
   @override
   State<HomePage> createState() => _HomePageState();

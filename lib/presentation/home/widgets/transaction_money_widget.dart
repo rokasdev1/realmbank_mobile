@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:realmbank_mobile/common/models/transaction.dart';
+import 'package:realmbank_mobile/data/models/transaction.dart';
 
 class TransactionMoneyWidget extends StatelessWidget {
   const TransactionMoneyWidget(
       {super.key, required this.transaction, required this.userUID});
-  final TransactionModel transaction;
+  final RMTransaction transaction;
   final String userUID;
 
   @override

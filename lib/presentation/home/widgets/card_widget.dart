@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:realmbank_mobile/common/models/user.dart';
-import 'package:realmbank_mobile/utils/extensions.dart';
-import 'package:realmbank_mobile/utils/full_name.dart';
-import 'package:realmbank_mobile/widgets/money_widget.dart';
+import 'package:realmbank_mobile/data/models/user.dart';
+import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';
+import 'package:realmbank_mobile/presentation/common/utils/full_name.dart';
+import 'package:realmbank_mobile/presentation/common/widgets/money_widget.dart';
 
 class CardWidget extends StatelessWidget {
   const CardWidget({super.key, required this.user});
-  final UserClass user;
+  final RMUser user;
 
   @override
   Widget build(BuildContext context) {

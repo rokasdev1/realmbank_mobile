@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:realmbank_mobile/utils/extensions.dart';
-import 'package:realmbank_mobile/widgets/big_button.dart';
-import 'package:realmbank_mobile/widgets/google_button.dart';
-import 'package:realmbank_mobile/widgets/text_field_widget.dart';
+import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';
+import 'package:realmbank_mobile/presentation/common/widgets/big_button.dart';
+import 'package:realmbank_mobile/presentation/auth/widgets/google_button.dart';
+import 'package:realmbank_mobile/presentation/common/widgets/text_field_widget.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key, required this.onSwitch});

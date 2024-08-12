@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:realmbank_mobile/common/models/transaction.dart';
-import 'package:realmbank_mobile/common/models/user.dart';
-import 'package:realmbank_mobile/utils/extensions.dart';
-import 'package:realmbank_mobile/utils/find_user_utils.dart';
-import 'package:realmbank_mobile/widgets/big_button.dart';
-import 'package:realmbank_mobile/widgets/text_field_widget.dart';
+import 'package:realmbank_mobile/data/models/transaction.dart';
+import 'package:realmbank_mobile/data/models/user.dart';
+import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';
+import 'package:realmbank_mobile/presentation/common/utils/find_user_utils.dart';
+import 'package:realmbank_mobile/presentation/common/widgets/big_button.dart';
+import 'package:realmbank_mobile/presentation/common/widgets/text_field_widget.dart';
 
 class SendMoneyPage extends StatefulWidget {
   const SendMoneyPage({super.key, required this.sender});
-  final UserClass sender;
+  final RMUser sender;
 
   @override
   State<SendMoneyPage> createState() => _SendMoneyPageState();

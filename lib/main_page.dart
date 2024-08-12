@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:realmbank_mobile/common/models/user.dart';
+import 'package:realmbank_mobile/data/models/user.dart';
 import 'package:realmbank_mobile/presentation/card/card_page.dart';
 import 'package:realmbank_mobile/presentation/home/home_page.dart';
 import 'package:realmbank_mobile/presentation/profile/profile_page.dart';
@@ -27,7 +27,7 @@ class _MainPageState extends State<MainPage> {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               final userData = snapshot.data!.data() as Map<String, dynamic>;
-              final user = UserClass.fromJson(userData);
+              final user = RMUser.fromJson(userData);
               return IndexedStack(
                 index: _currentIndex,
                 children: [

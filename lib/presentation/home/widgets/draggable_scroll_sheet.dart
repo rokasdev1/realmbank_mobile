@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:realmbank_mobile/utils/extensions.dart';
-import 'package:realmbank_mobile/widgets/transactions_widget.dart';
+import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';
+import 'package:realmbank_mobile/presentation/home/widgets/transactions_widget.dart';
 
 class DraggableScrollSheet extends StatefulWidget {
   DraggableScrollSheet({super.key, required this.sheetController});

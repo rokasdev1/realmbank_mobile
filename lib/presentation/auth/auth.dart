@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:realmbank_mobile/presentation/auth/intro_page.dart';
 import 'package:realmbank_mobile/main_page.dart';
-import 'package:realmbank_mobile/pages/start_page.dart';
+import 'package:realmbank_mobile/presentation/auth/start_page.dart';
 
 class Auth extends StatelessWidget {
   const Auth({super.key});

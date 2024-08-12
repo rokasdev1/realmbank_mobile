@@ -1,13 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:realmbank_mobile/common/models/user.dart';
-import 'package:realmbank_mobile/utils/extensions.dart';
-import 'package:realmbank_mobile/widgets/list_tile_widget.dart';
+import 'package:realmbank_mobile/data/models/user.dart';
+import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';
+import 'package:realmbank_mobile/presentation/common/widgets/list_tile_widget.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key, required this.user});
-  final UserClass user;
+  final RMUser user;
 
   @override
   Widget build(BuildContext context) {

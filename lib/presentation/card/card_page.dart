@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:realmbank_mobile/common/models/user.dart';
+import 'package:realmbank_mobile/data/models/user.dart';
 import 'package:realmbank_mobile/presentation/card/send_money_page.dart';
-import 'package:realmbank_mobile/utils/extensions.dart';
-import 'package:realmbank_mobile/widgets/big_button.dart';
+import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';
+import 'package:realmbank_mobile/presentation/common/widgets/big_button.dart';
 
 class CardPage extends StatelessWidget {
   const CardPage({super.key, required this.user});
-  final UserClass user;
+  final RMUser user;
 
   @override
   Widget build(BuildContext context) {

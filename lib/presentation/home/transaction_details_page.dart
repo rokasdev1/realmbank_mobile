@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:realmbank_mobile/common/models/transaction.dart';
-import 'package:realmbank_mobile/common/models/user.dart';
-import 'package:realmbank_mobile/utils/date_converter.dart';
-import 'package:realmbank_mobile/utils/extensions.dart';
-import 'package:realmbank_mobile/utils/find_user_utils.dart';
-import 'package:realmbank_mobile/utils/number_format.dart';
+import 'package:realmbank_mobile/data/models/transaction.dart';
+import 'package:realmbank_mobile/data/models/user.dart';
+import 'package:realmbank_mobile/presentation/common/utils/date_converter.dart';
+import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';
+import 'package:realmbank_mobile/presentation/common/utils/find_user_utils.dart';
+import 'package:realmbank_mobile/presentation/common/utils/number_format.dart';
 
 class TransactionDetailsPage extends StatelessWidget {
   const TransactionDetailsPage({super.key, required this.transaction});
-  final TransactionModel transaction;
+  final RMTransaction transaction;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class TransactionDetailsPage extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: FutureBuilder<List<UserClass>>(
+      body: FutureBuilder<List<RMUser>>(
           future:
               findUsersWithUID(transaction.senderUID, transaction.receiverUID),
           builder: (context, snapshot) {

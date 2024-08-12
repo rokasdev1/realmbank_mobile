@@ -1,7 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:realmbank_mobile/common/router.dart';
 import 'package:realmbank_mobile/firebase_options.dart';
 import 'package:realmbank_mobile/presentation/auth/auth.dart';
+
+late final RMRouter router;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

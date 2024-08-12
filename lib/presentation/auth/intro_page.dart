@@ -2,12 +2,12 @@ import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:realmbank_mobile/common/models/user.dart';
+import 'package:realmbank_mobile/data/models/user.dart';
 import 'package:realmbank_mobile/main_page.dart';
-import 'package:realmbank_mobile/utils/card_number_generator.dart';
-import 'package:realmbank_mobile/utils/extensions.dart';
-import 'package:realmbank_mobile/widgets/big_button.dart';
-import 'package:realmbank_mobile/widgets/text_field_widget.dart';
+import 'package:realmbank_mobile/presentation/common/utils/card_number_generator.dart';
+import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';
+import 'package:realmbank_mobile/presentation/common/widgets/big_button.dart';
+import 'package:realmbank_mobile/presentation/common/widgets/text_field_widget.dart';
 
 class IntroPage extends StatefulWidget {
   const IntroPage({super.key});
@@ -23,7 +23,7 @@ class _IntroPageState extends State<IntroPage> {
   createUserAccount() async {
     try {
       final currentUser = FirebaseAuth.instance.currentUser!;
-      final newUser = UserClass(
+      final newUser = RMUser(
         name: nameController.text,
         lastName: lastNameController.text,
         balance: 0,
