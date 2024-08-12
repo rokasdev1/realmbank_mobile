@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:realmbank_mobile/models/user.dart';
+import 'package:realmbank_mobile/common/models/user.dart';
 
 Future<UserClass> findUserWithCardNum(String cardNumber) async {
   final matchingDocs = await FirebaseFirestore.instance

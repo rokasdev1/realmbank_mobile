@@ -1,8 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:realmbank_mobile/utils/extensions.dart';
-import 'package:realmbank_mobile/utils/number_format.dart';
 
 class TextFieldwidget extends StatefulWidget {
   TextFieldwidget({

@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:realmbank_mobile/models/user.dart';
-import 'package:realmbank_mobile/pages/card_page.dart';
-import 'package:realmbank_mobile/pages/home_page.dart';
-import 'package:realmbank_mobile/pages/profile_page.dart';
+import 'package:realmbank_mobile/common/models/user.dart';
+import 'package:realmbank_mobile/presentation/card/card_page.dart';
+import 'package:realmbank_mobile/presentation/home/home_page.dart';
+import 'package:realmbank_mobile/presentation/profile/profile_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});

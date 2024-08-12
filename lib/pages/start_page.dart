@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:realmbank_mobile/page_redirectors/login_register.dart';
+import 'package:realmbank_mobile/presentation/auth/login_register.dart';
 
 class StartPage extends StatelessWidget {
   const StartPage({super.key});

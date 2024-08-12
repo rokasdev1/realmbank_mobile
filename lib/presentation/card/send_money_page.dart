@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:realmbank_mobile/models/transaction.dart';
-import 'package:realmbank_mobile/models/user.dart';
+import 'package:realmbank_mobile/common/models/transaction.dart';
+import 'package:realmbank_mobile/common/models/user.dart';
 import 'package:realmbank_mobile/utils/extensions.dart';
 import 'package:realmbank_mobile/utils/find_user_utils.dart';
 import 'package:realmbank_mobile/widgets/big_button.dart';

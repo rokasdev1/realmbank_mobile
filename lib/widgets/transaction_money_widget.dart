@@ -1,8 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:realmbank_mobile/models/transaction.dart';
+import 'package:realmbank_mobile/common/models/transaction.dart';
 
 class TransactionMoneyWidget extends StatelessWidget {
   const TransactionMoneyWidget(

@@ -1,8 +1,7 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:realmbank_mobile/models/user.dart';
-import 'package:realmbank_mobile/utils/date_converter.dart';
+import 'package:realmbank_mobile/common/models/user.dart';
 import 'package:realmbank_mobile/utils/full_name.dart';
 
 class TransactionModel {

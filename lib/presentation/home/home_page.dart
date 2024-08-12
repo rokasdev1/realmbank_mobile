@@ -1,18 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
-import 'package:realmbank_mobile/models/transaction.dart';
-import 'package:realmbank_mobile/models/user.dart';
-import 'package:realmbank_mobile/pages/send_money_page.dart';
-import 'package:realmbank_mobile/utils/extensions.dart';
-import 'package:realmbank_mobile/utils/full_name.dart';
-import 'package:realmbank_mobile/widgets/big_button.dart';
+import 'package:realmbank_mobile/common/models/user.dart';
 import 'package:realmbank_mobile/widgets/card_widget.dart';
 import 'package:realmbank_mobile/widgets/draggable_scroll_sheet.dart';
-import 'package:realmbank_mobile/widgets/money_widget.dart';
-import 'package:realmbank_mobile/widgets/transactions_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.user});

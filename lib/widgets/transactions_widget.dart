@@ -1,9 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:realmbank_mobile/models/transaction.dart';
-import 'package:realmbank_mobile/pages/transaction_details_page.dart';
+import 'package:realmbank_mobile/common/models/transaction.dart';
+import 'package:realmbank_mobile/presentation/home/transaction_details_page.dart';
 import 'package:realmbank_mobile/utils/date_converter.dart';
 import 'package:realmbank_mobile/utils/extensions.dart';
 import 'package:realmbank_mobile/widgets/transaction_money_widget.dart';

@@ -1,7 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:realmbank_mobile/models/user.dart';
-import 'package:realmbank_mobile/pages/send_money_page.dart';
+import 'package:realmbank_mobile/common/models/user.dart';
+import 'package:realmbank_mobile/presentation/card/send_money_page.dart';
 import 'package:realmbank_mobile/utils/extensions.dart';
 import 'package:realmbank_mobile/widgets/big_button.dart';
 

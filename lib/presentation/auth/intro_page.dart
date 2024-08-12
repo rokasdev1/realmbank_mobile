@@ -2,9 +2,8 @@ import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:realmbank_mobile/models/user.dart';
-import 'package:realmbank_mobile/pages/home_page.dart';
-import 'package:realmbank_mobile/pages/main_page.dart';
+import 'package:realmbank_mobile/common/models/user.dart';
+import 'package:realmbank_mobile/main_page.dart';
 import 'package:realmbank_mobile/utils/card_number_generator.dart';
 import 'package:realmbank_mobile/utils/extensions.dart';
 import 'package:realmbank_mobile/widgets/big_button.dart';

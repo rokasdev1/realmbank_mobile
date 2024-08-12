@@ -1,8 +1,6 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:realmbank_mobile/models/user.dart';
+import 'package:realmbank_mobile/common/models/user.dart';
 import 'package:realmbank_mobile/utils/extensions.dart';
 import 'package:realmbank_mobile/utils/full_name.dart';
 import 'package:realmbank_mobile/widgets/money_widget.dart';
