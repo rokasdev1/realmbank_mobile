@@ -1,8 +1,16 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:realmbank_mobile/common/router.dart';
+import 'package:realmbank_mobile/common/routes.dart';
 import 'package:realmbank_mobile/data/models/user.dart';
+import 'package:realmbank_mobile/main.dart';
 import 'package:realmbank_mobile/presentation/card/card_page.dart';
+import 'package:realmbank_mobile/presentation/common/providers/user_cubit.dart';
 import 'package:realmbank_mobile/presentation/home/home_page.dart';
 import 'package:realmbank_mobile/presentation/profile/profile_page.dart';
 
@@ -19,15 +27,11 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: StreamBuilder(
-          stream: FirebaseFirestore.instance
-              .collection('users')
-              .doc(FirebaseAuth.instance.currentUser!.uid)
-              .snapshots(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              final userData = snapshot.data!.data() as Map<String, dynamic>;
-              final user = RMUser.fromJson(userData);
+        body: BlocBuilder<UserCubit, UserState>(
+          builder: (context, state) {
+            log(state.toString());
+            if (state is SuccessUserState) {
+              final user = state.user;
               return IndexedStack(
                 index: _currentIndex,
                 children: [
@@ -36,9 +40,16 @@ class _MainPageState extends State<MainPage> {
                   ProfilePage(user: user),
                 ],
               );
-            } else {
-              return const Text('Error');
             }
+            // } else if (state is InitialUserState) {
+            //   WidgetsBinding.instance.addPostFrameCallback((_) {
+            //     context.go('/intro-page');
+            //   });
+            // }
+
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           },
         ),
         bottomNavigationBar: BottomNavigationBar(

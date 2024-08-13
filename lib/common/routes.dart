@@ -26,58 +26,21 @@ class StartPageRoute extends RMRoute {
         );
 }
 
-class LoginRoute extends RMRoute {
-  LoginRoute({
-    required Function() onSwitch,
-  }) : super(
-          name: 'login',
-          path: '/login',
+class LoginRegisterRoute extends RMRoute {
+  LoginRegisterRoute()
+      : super(
+          name: 'loginRegister',
+          path: '/login-register',
           params: {},
-          extra: onSwitch,
         );
 }
 
-class RegisterRoute extends RMRoute {
-  RegisterRoute({
-    required Function() onSwitch,
-  }) : super(
-          name: 'register',
-          path: '/register',
-          params: {},
-          extra: onSwitch,
-        );
-}
-
-class HomePageRoute extends RMRoute {
-  HomePageRoute({
-    required RMUser user,
-  }) : super(
-          name: 'home',
+class MainPageRoute extends RMRoute {
+  MainPageRoute()
+      : super(
+          name: 'main',
           path: '/',
           params: {},
-          extra: user,
-        );
-}
-
-class CardPageRoute extends RMRoute {
-  CardPageRoute({
-    required RMUser user,
-  }) : super(
-          name: 'cardPage',
-          path: '/card-page',
-          params: {},
-          extra: user,
-        );
-}
-
-class ProfilePageRoute extends RMRoute {
-  ProfilePageRoute({
-    required RMUser user,
-  }) : super(
-          name: 'profile',
-          path: '/profile',
-          params: {},
-          extra: user,
         );
 }
 
@@ -89,6 +52,17 @@ class TransactionDetailsRoute extends RMRoute {
           path: 'transaction',
           params: {},
           extra: transaction,
+        );
+}
+
+class SendMoneyRoute extends RMRoute {
+  SendMoneyRoute({
+    required RMUser user,
+  }) : super(
+          name: 'sendMoney',
+          path: 'send-money',
+          params: {},
+          extra: user,
         );
 }
 

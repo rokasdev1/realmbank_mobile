@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:realmbank_mobile/data/models/user.dart';
+import 'package:realmbank_mobile/presentation/common/providers/auth_cubit.dart';
 import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';
 import 'package:realmbank_mobile/presentation/common/widgets/list_tile_widget.dart';
 
@@ -139,7 +141,7 @@ class ProfilePage extends StatelessWidget {
                         text: 'Log out',
                         foregroundColor: Colors.red,
                         onTap: () {
-                          FirebaseAuth.instance.signOut();
+                          context.read<AuthCubit>().signOut();
                         },
                         trailing: Icons.arrow_forward_ios_rounded,
                         noTrailing: true,

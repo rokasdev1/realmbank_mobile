@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:realmbank_mobile/common/routes.dart';
 import 'package:realmbank_mobile/presentation/auth/login_register.dart';
+import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';
 
 class StartPage extends StatelessWidget {
   const StartPage({super.key});
@@ -12,11 +15,7 @@ class StartPage extends StatelessWidget {
         children: [
           ElevatedButton(
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const LoginOrRegister(),
-                    ));
+                context.pushRoute(LoginRegisterRoute());
               },
               child: const Text('Log in'))
         ],

@@ -1,12 +1,19 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:realmbank_mobile/common/routes.dart';
 import 'package:realmbank_mobile/data/models/transaction.dart';
 import 'package:realmbank_mobile/data/models/user.dart';
+import 'package:realmbank_mobile/main_page.dart';
 import 'package:realmbank_mobile/presentation/auth/login_page.dart';
+import 'package:realmbank_mobile/presentation/auth/login_register.dart';
 import 'package:realmbank_mobile/presentation/auth/register_page.dart';
 import 'package:realmbank_mobile/presentation/auth/start_page.dart';
 import 'package:realmbank_mobile/presentation/card/card_page.dart';
+import 'package:realmbank_mobile/presentation/card/send_money_page.dart';
+import 'package:realmbank_mobile/presentation/common/providers/auth_cubit.dart';
 import 'package:realmbank_mobile/presentation/home/home_page.dart';
 import 'package:realmbank_mobile/presentation/home/transaction_details_page.dart';
 import 'package:realmbank_mobile/presentation/profile/profile_page.dart';
@@ -21,13 +28,13 @@ class RMRouter {
   late final GoRouter router = GoRouter(
     navigatorKey: rootNavigatorKey,
     observers: [routeObserver],
+    initialLocation: '/',
     routes: [
       GoRoute(
-        name: 'home',
+        name: 'main',
         path: '/',
         builder: (context, state) {
-          final user = state.extra! as RMUser;
-          return HomePage(user: user);
+          return const MainPage();
         },
         routes: [
           GoRoute(
@@ -46,42 +53,24 @@ class RMRouter {
         builder: (context, state) => const StartPage(),
       ),
       GoRoute(
-        name: 'login',
-        path: '/login',
+        name: 'loginRegister',
+        path: '/login-register',
         builder: (context, state) {
-          final extra = state.extra! as Function();
-          return LoginPage(onSwitch: extra);
-        },
-      ),
-      GoRoute(
-        name: 'register',
-        path: '/register',
-        builder: (context, state) {
-          final extra = state.extra! as Function();
-          return RegisterPage(onSwitch: extra);
-        },
-      ),
-      GoRoute(
-        name: 'cardPage',
-        path: '/card-page',
-        builder: (context, state) {
-          final user = state.extra! as RMUser;
-          return CardPage(user: user);
-        },
-      ),
-      GoRoute(
-        name: 'profile',
-        path: '/profile',
-        builder: (context, state) {
-          final user = state.extra! as RMUser;
-          return ProfilePage(user: user);
+          return const LoginOrRegister();
         },
       ),
       GoRoute(
         name: 'introPage',
         path: '/intro-page',
         builder: (context, state) => const IntroPage(),
-      )
+      ),
+      GoRoute(
+          name: 'sendMoney',
+          path: '/send-money',
+          builder: (context, state) {
+            final extra = state.extra! as RMUser;
+            return SendMoneyPage(sender: extra);
+          })
     ],
   );
 
