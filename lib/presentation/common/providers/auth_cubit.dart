@@ -2,21 +2,19 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:realmbank_mobile/data/enums/login_type.dart';
 import 'package:realmbank_mobile/data/repositories/authentication_repository.dart';
-import 'package:realmbank_mobile/presentation/common/providers/auth_cubit.dart';
 import 'package:realmbank_mobile/presentation/common/providers/user_cubit.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit({
-    required this.context,
+    required this.userCubit,
     required AuthenticationRepository authenticationRepository,
   })  : _authenticationRepository = authenticationRepository,
         super(InitialAuthState());
 
-  BuildContext context;
+  final UserCubit userCubit;
   final AuthenticationRepository _authenticationRepository;
   StreamSubscription? _authStateChangesSubscription;
 
@@ -29,8 +27,9 @@ class AuthCubit extends Cubit<AuthState> {
           emit(InitialAuthState());
         } else {
           emit(SuccessAuthState(user: event));
-          context.read<UserCubit>().connectUser();
+          userCubit.connectUser();
         }
+        log(userCubit.state.toString());
       },
     );
   }
@@ -61,7 +60,7 @@ class AuthCubit extends Cubit<AuthState> {
       emit(
         SuccessAuthState(user: resp.user!),
       );
-      context.read<UserCubit>().connectUser();
+      userCubit.connectUser();
     } catch (e) {
       log('AuthCubit.signIn: Error $e');
       emit(FailedAuthState(e.toString()));

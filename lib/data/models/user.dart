@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class RMUser {
   final String name;
   final String lastName;
@@ -35,10 +33,4 @@ class RMUser {
         cardNumber: json['cardNumber'],
         uid: json['uid'],
       );
-}
-
-Future<void> createUser(RMUser user) async {
-  final docUser = FirebaseFirestore.instance.collection('users').doc(user.uid);
-  final json = user.toJson();
-  await docUser.set(json);
 }

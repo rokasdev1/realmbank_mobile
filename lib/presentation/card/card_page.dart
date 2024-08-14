@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:realmbank_mobile/common/routes.dart';
 import 'package:realmbank_mobile/data/models/user.dart';
-import 'package:realmbank_mobile/presentation/card/send_money_page.dart';
 import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';
 import 'package:realmbank_mobile/presentation/common/widgets/big_button.dart';
 

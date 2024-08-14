@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:realmbank_mobile/common/routes.dart';
-import 'package:realmbank_mobile/presentation/auth/login_register.dart';
 import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';
 
 class StartPage extends StatelessWidget {

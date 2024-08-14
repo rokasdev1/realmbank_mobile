@@ -1,22 +1,13 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:realmbank_mobile/common/routes.dart';
 import 'package:realmbank_mobile/data/models/transaction.dart';
 import 'package:realmbank_mobile/data/models/user.dart';
 import 'package:realmbank_mobile/main_page.dart';
-import 'package:realmbank_mobile/presentation/auth/login_page.dart';
 import 'package:realmbank_mobile/presentation/auth/login_register.dart';
-import 'package:realmbank_mobile/presentation/auth/register_page.dart';
 import 'package:realmbank_mobile/presentation/auth/start_page.dart';
-import 'package:realmbank_mobile/presentation/card/card_page.dart';
 import 'package:realmbank_mobile/presentation/card/send_money_page.dart';
-import 'package:realmbank_mobile/presentation/common/providers/auth_cubit.dart';
-import 'package:realmbank_mobile/presentation/home/home_page.dart';
 import 'package:realmbank_mobile/presentation/home/transaction_details_page.dart';
-import 'package:realmbank_mobile/presentation/profile/profile_page.dart';
 import 'package:realmbank_mobile/presentation/auth/intro_page.dart';
 
 final rootNavigatorKey = GlobalKey<NavigatorState>();

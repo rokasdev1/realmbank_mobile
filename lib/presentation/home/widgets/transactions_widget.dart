@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:realmbank_mobile/common/routes.dart';
 import 'package:realmbank_mobile/data/models/transaction.dart';
 import 'package:realmbank_mobile/presentation/home/transaction_details_page.dart';
 import 'package:realmbank_mobile/presentation/common/utils/date_converter.dart';
@@ -79,13 +80,8 @@ class _TransactionsWidgetState extends State<TransactionsWidget> {
             final transaction = RMTransaction.fromJson(transactionData);
             return GestureDetector(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        TransactionDetailsPage(transaction: transaction),
-                  ),
-                );
+                context.pushRoute(
+                    TransactionDetailsRoute(transaction: transaction));
               },
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),

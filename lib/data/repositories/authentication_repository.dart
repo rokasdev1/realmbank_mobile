@@ -3,8 +3,6 @@ import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:realmbank_mobile/data/enums/login_type.dart';
-import 'package:realmbank_mobile/presentation/common/providers/auth_cubit.dart';
-import 'package:realmbank_mobile/presentation/common/providers/user_cubit.dart';
 
 class AuthenticationRepository {
   Future<UserCredential?> signIn({

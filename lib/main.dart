@@ -1,14 +1,11 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:realmbank_mobile/common/router.dart';
 import 'package:realmbank_mobile/common/routes.dart';
 import 'package:realmbank_mobile/data/repositories/authentication_repository.dart';
 import 'package:realmbank_mobile/data/repositories/user_repository.dart';
 import 'package:realmbank_mobile/firebase_options.dart';
-import 'package:realmbank_mobile/presentation/auth/auth.dart';
 import 'package:realmbank_mobile/presentation/common/providers/auth_cubit.dart';
 import 'package:realmbank_mobile/presentation/common/providers/user_cubit.dart';
 
@@ -47,19 +44,20 @@ class _MyAppState extends State<MyApp> {
       providers: [
         BlocProvider(
           create: (_) {
-            final authCubit = AuthCubit(
-                authenticationRepository: authenticationRepository, context: _);
-            authCubit.init();
-            return authCubit;
+            final userCubit = UserCubit(userRepository: userRepository);
+            return userCubit;
           },
         ),
         BlocProvider(
           create: (_) {
-            final userCubit = UserCubit(userRepository: userRepository);
-
-            return userCubit;
+            final userCubit = _.read<UserCubit>();
+            final authCubit = AuthCubit(
+                authenticationRepository: authenticationRepository,
+                userCubit: userCubit);
+            authCubit.init();
+            return authCubit;
           },
-        )
+        ),
       ],
       child: BlocListener<AuthCubit, AuthState>(
         child: MaterialApp.router(
