@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:realmbank_mobile/common/router.dart';
 import 'package:realmbank_mobile/data/models/transaction.dart';
 import 'package:realmbank_mobile/data/models/user.dart';
 import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';

@@ -4,11 +4,11 @@ import 'package:realmbank_mobile/common/routes.dart';
 import 'package:realmbank_mobile/data/models/transaction.dart';
 import 'package:realmbank_mobile/data/models/user.dart';
 import 'package:realmbank_mobile/main_page.dart';
-import 'package:realmbank_mobile/presentation/auth/login_register.dart';
-import 'package:realmbank_mobile/presentation/auth/start_page.dart';
-import 'package:realmbank_mobile/presentation/card/send_money_page.dart';
-import 'package:realmbank_mobile/presentation/home/transaction_details_page.dart';
-import 'package:realmbank_mobile/presentation/auth/intro_page.dart';
+import 'package:realmbank_mobile/presentation/auth/pages/login_register.dart';
+import 'package:realmbank_mobile/presentation/auth/pages/start_page.dart';
+import 'package:realmbank_mobile/presentation/card/pages/send_money_page.dart';
+import 'package:realmbank_mobile/presentation/home/pages/transaction_details_page.dart';
+import 'package:realmbank_mobile/presentation/auth/pages/intro_page.dart';
 
 final rootNavigatorKey = GlobalKey<NavigatorState>();
 final signInNavigatorKey = GlobalKey<NavigatorState>();
