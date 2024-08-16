@@ -46,6 +46,12 @@ dependencies:
   go_router: ^14.2.3
   flutter_bloc: ^8.1.6
   google_sign_in: ^6.2.1
+  animated_flip_widget: ^0.0.2
+  dot_navigation_bar: ^1.0.2
+  responsive_navigation_bar: ^5.0.2
+  sliding_clipped_nav_bar: ^3.1.1
+  molten_navigationbar_flutter: ^1.0.1
+  salomon_bottom_bar: ^3.3.2
 
 dev_dependencies:
   flutter_test:

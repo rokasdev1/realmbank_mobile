@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:realmbank_mobile/data/models/user.dart';
-import 'package:realmbank_mobile/presentation/home/widgets/card_widget.dart';
+import 'package:realmbank_mobile/presentation/home/widgets/balance_card_widget.dart';
 import 'package:realmbank_mobile/presentation/home/widgets/draggable_scroll_sheet.dart';
 
 class HomePage extends StatefulWidget {
@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
               ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
             ),
           ),
-          CardWidget(user: widget.user),
+          BalanceCardWidget(user: widget.user),
           DraggableScrollSheet(sheetController: sheetController),
         ],
       ),

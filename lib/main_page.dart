@@ -1,10 +1,15 @@
+import 'package:dot_navigation_bar/dot_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:molten_navigationbar_flutter/molten_navigationbar_flutter.dart';
 import 'package:realmbank_mobile/presentation/card/pages/card_page.dart';
 import 'package:realmbank_mobile/presentation/common/providers/user_cubit.dart';
 import 'package:realmbank_mobile/presentation/home/pages/home_page.dart';
-import 'package:realmbank_mobile/presentation/profile/profile_page.dart';
+import 'package:realmbank_mobile/presentation/profile/pages/profile_page.dart';
+import 'package:responsive_navigation_bar/responsive_navigation_bar.dart';
+import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+import 'package:sliding_clipped_nav_bar/sliding_clipped_nav_bar.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -19,47 +24,67 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: BlocBuilder<UserCubit, UserState>(
-          builder: (context, state) {
-            if (state is SuccessUserState) {
-              final user = state.user;
-              return IndexedStack(
-                index: _currentIndex,
-                children: [
-                  HomePage(user: user),
-                  CardPage(user: user),
-                  ProfilePage(user: user),
-                ],
-              );
-            } else if (state is IntroUserState) {
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                context.go('/intro-page');
-              });
-            }
-
-            return const Center(
-              child: CircularProgressIndicator(),
+      body: BlocBuilder<UserCubit, UserState>(
+        builder: (context, state) {
+          if (state is SuccessUserState) {
+            final user = state.user;
+            return IndexedStack(
+              index: _currentIndex,
+              children: [
+                HomePage(user: user),
+                CardPage(user: user),
+                ProfilePage(user: user),
+              ],
             );
-          },
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          elevation: 2,
-          backgroundColor: Colors.white,
-          unselectedItemColor: Colors.grey.shade400,
-          selectedItemColor: const Color.fromRGBO(94, 98, 239, 1),
-          items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.credit_card), label: 'Card'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.person_outline_rounded), label: 'Profile'),
+          } else if (state is IntroUserState) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              context.go('/intro-page');
+            });
+          }
+
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        },
+      ),
+      bottomNavigationBar: Container(
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+                color: Colors.grey.shade200, blurRadius: 10, spreadRadius: 5)
           ],
-          onTap: (value) {
+        ),
+        child: SalomonBottomBar(
+          itemPadding: const EdgeInsets.symmetric(horizontal: 25, vertical: 12),
+          items: [
+            SalomonBottomBarItem(
+              selectedColor: const Color.fromRGBO(94, 98, 239, 1),
+              icon: const Icon(Icons.home_outlined),
+              activeIcon: const Icon(Icons.home),
+              title: const Text('Home'),
+            ),
+            SalomonBottomBarItem(
+              icon: const Icon(Icons.credit_card),
+              title: const Text('Card'),
+            ),
+            SalomonBottomBarItem(
+              icon: const Icon(Icons.person_outline),
+              activeIcon: const Icon(Icons.person),
+              title: const Text('Profile'),
+            ),
+          ],
+          currentIndex: _currentIndex,
+          onTap: (index) {
             setState(() {
-              _currentIndex = value;
+              _currentIndex = index;
             });
           },
-          currentIndex: _currentIndex,
-        ));
+        ),
+      ),
+    );
   }
 }

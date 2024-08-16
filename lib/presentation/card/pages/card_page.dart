@@ -1,21 +1,29 @@
+import 'package:animated_flip_widget/animated_flip_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:realmbank_mobile/common/router.dart';
 import 'package:realmbank_mobile/common/routes.dart';
 import 'package:realmbank_mobile/data/models/user.dart';
+import 'package:realmbank_mobile/presentation/card/widgets/card_back_widget.dart';
+import 'package:realmbank_mobile/presentation/card/widgets/card_front_widget.dart';
 import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';
+import 'package:realmbank_mobile/presentation/common/utils/full_name.dart';
 import 'package:realmbank_mobile/presentation/common/widgets/big_button.dart';
+import 'package:realmbank_mobile/presentation/common/widgets/tile_widget.dart';
 
 class CardPage extends StatelessWidget {
-  const CardPage({super.key, required this.user});
+  CardPage({super.key, required this.user});
   final RMUser user;
+  final controller = FlipController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
+        toolbarHeight: 75,
         title: const Text(
           'Card',
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40),
         ),
         centerTitle: true,
       ),
@@ -24,17 +32,50 @@ class CardPage extends StatelessWidget {
         child: Column(
           children: [
             16.heightBox,
-            const Text(
-              'My card',
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.grey.shade200,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TileWidget(
+                    icon: Icons.arrow_upward_rounded,
+                    title: 'Send',
+                    onTap: () {
+                      SendMoneyRoute(user: user).push();
+                      // ar
+                      context.pushRoute(SendMoneyRoute(user: user));
+                    },
+                  ),
+                  TileWidget(
+                    onTap: () {},
+                    icon: Icons.arrow_downward_rounded,
+                    title: 'Request',
+                  ),
+                  TileWidget(
+                    onTap: () {},
+                    icon: Icons.qr_code_rounded,
+                    title: 'Send with QR',
+                  ),
+                ],
+              ),
             ),
-            16.heightBox,
-            BigButton(
-              label: 'Send',
-              onTap: () {
-                context.pushRoute(SendMoneyRoute(user: user));
-              },
-            )
+            36.heightBox,
+            Center(
+              child: AnimatedFlipWidget(
+                flipDirection: FlipDirection.horizontal,
+                flipDuration: const Duration(milliseconds: 500),
+                front: CardFrontWidget(
+                  fullName: fullName(user.name, user.lastName),
+                ),
+                back: CardBackWidget(
+                  user: user,
+                ),
+                controller: controller,
+              ),
+            ),
           ],
         ),
       ),

@@ -5,8 +5,8 @@ import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';
 import 'package:realmbank_mobile/presentation/common/utils/full_name.dart';
 import 'package:realmbank_mobile/presentation/common/widgets/money_widget.dart';
 
-class CardWidget extends StatelessWidget {
-  const CardWidget({super.key, required this.user});
+class BalanceCardWidget extends StatelessWidget {
+  const BalanceCardWidget({super.key, required this.user});
   final RMUser user;
 
   @override
