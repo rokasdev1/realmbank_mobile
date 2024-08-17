@@ -17,13 +17,13 @@ class _DraggableScrollSheetState extends State<DraggableScrollSheet> {
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
       controller: widget.sheetController,
-      initialChildSize: 0.7,
-      minChildSize: 0.7,
+      initialChildSize: 0.62,
+      minChildSize: 0.62,
       snap: true,
       maxChildSize: 1,
       builder: (context, scrollController) {
         return Container(
-          padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
+          padding: const EdgeInsets.only(top: 25, left: 16, right: 16),
           decoration: const BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.only(
@@ -50,7 +50,7 @@ class _DraggableScrollSheetState extends State<DraggableScrollSheet> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      25.heightBox,
+                      16.heightBox,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -66,7 +66,7 @@ class _DraggableScrollSheetState extends State<DraggableScrollSheet> {
                                       duration:
                                           const Duration(milliseconds: 500),
                                       curve: Curves.decelerate)
-                                  : widget.sheetController.animateTo(0.7,
+                                  : widget.sheetController.animateTo(0.62,
                                       duration:
                                           const Duration(milliseconds: 500),
                                       curve: Curves.decelerate);

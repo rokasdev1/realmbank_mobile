@@ -7,12 +7,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:realmbank_mobile/data/models/transaction.dart';
 import 'package:realmbank_mobile/data/models/user.dart';
 import 'package:realmbank_mobile/data/repositories/user_repository.dart';
+import 'package:realmbank_mobile/presentation/common/providers/transaction_cubit.dart';
 import 'package:realmbank_mobile/presentation/common/utils/card_number_generator.dart';
 import 'package:realmbank_mobile/presentation/common/utils/full_name.dart';
 
 class UserCubit extends Cubit<UserState> {
-  UserCubit({required this.userRepository}) : super(InitialUserState());
+  UserCubit({required this.transactionCubit, required this.userRepository})
+      : super(InitialUserState());
 
+  final TransactionCubit transactionCubit;
   final UserRepository userRepository;
   StreamSubscription? userStateChanges;
 
@@ -38,6 +41,7 @@ class UserCubit extends Cubit<UserState> {
           );
         },
       );
+      transactionCubit.getTransactions();
     } catch (e) {
       log('UserCubit.init: Error: $e');
       emit(FailedUserState(e.toString()));
@@ -72,45 +76,6 @@ class UserCubit extends Cubit<UserState> {
       log('UserCubit.createUserAccount: Error: $e');
     }
     log(state.toString());
-  }
-
-  Future<void> sendMoney(
-      RMUser sender, RMUser receiver, double amount, String description) async {
-    final newSenderBalance =
-        double.parse((sender.balance - amount).toStringAsFixed(2));
-    final newReceiverBalance =
-        double.parse((receiver.balance + amount).toStringAsFixed(2));
-
-    if (newSenderBalance >= 0 && sender != receiver && amount > 0) {
-      try {
-        await FirebaseFirestore.instance
-            .collection('users')
-            .doc(sender.uid)
-            .update({'balance': newSenderBalance});
-        log(newSenderBalance.toString());
-
-        await FirebaseFirestore.instance
-            .collection('users')
-            .doc(receiver.uid)
-            .update({'balance': newReceiverBalance});
-
-        final docTransaction =
-            FirebaseFirestore.instance.collection('transactions').doc();
-        final transaction = RMTransaction(
-          senderUID: sender.uid,
-          senderFullName: fullName(sender.name, sender.lastName),
-          receiverUID: receiver.uid,
-          receiverFullName: fullName(receiver.name, receiver.lastName),
-          description: description,
-          amount: amount,
-          date: Timestamp.now(),
-          id: docTransaction.id,
-        );
-        docTransaction.set(transaction.toJson());
-      } catch (e) {
-        log(e.toString());
-      }
-    }
   }
 }
 

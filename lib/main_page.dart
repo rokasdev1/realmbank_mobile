@@ -1,15 +1,12 @@
-import 'package:dot_navigation_bar/dot_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:molten_navigationbar_flutter/molten_navigationbar_flutter.dart';
 import 'package:realmbank_mobile/presentation/card/pages/card_page.dart';
+import 'package:realmbank_mobile/presentation/common/providers/transaction_cubit.dart';
 import 'package:realmbank_mobile/presentation/common/providers/user_cubit.dart';
 import 'package:realmbank_mobile/presentation/home/pages/home_page.dart';
 import 'package:realmbank_mobile/presentation/profile/pages/profile_page.dart';
-import 'package:responsive_navigation_bar/responsive_navigation_bar.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
-import 'package:sliding_clipped_nav_bar/sliding_clipped_nav_bar.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});

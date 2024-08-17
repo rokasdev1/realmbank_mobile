@@ -1,11 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:realmbank_mobile/data/models/user.dart';
 
-Future<RMUser> findUserWithCardNum(String cardNumber) async {
+Future<RMUser?> findUserWithCardNum(String cardNumber) async {
   final matchingDocs = await FirebaseFirestore.instance
       .collection('users')
       .where('cardNumber', isEqualTo: cardNumber)
       .get();
+  if (matchingDocs.docs.isEmpty) {
+    return null;
+  }
   final docData = matchingDocs.docs.first.data();
   final user = RMUser.fromJson(docData);
   return user;

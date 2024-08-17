@@ -142,8 +142,6 @@ class ProfilePage extends StatelessWidget {
                         onTap: () {
                           context.read<AuthCubit>().signOut();
                         },
-                        trailing: Icons.arrow_forward_ios_rounded,
-                        noTrailing: true,
                       ),
                     ],
                   ),

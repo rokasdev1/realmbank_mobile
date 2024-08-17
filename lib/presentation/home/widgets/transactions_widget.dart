@@ -1,8 +1,12 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:realmbank_mobile/common/routes.dart';
 import 'package:realmbank_mobile/data/models/transaction.dart';
+import 'package:realmbank_mobile/presentation/common/providers/transaction_cubit.dart';
 import 'package:realmbank_mobile/presentation/common/utils/date_converter.dart';
 import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';
 import 'package:realmbank_mobile/presentation/home/widgets/transaction_money_widget.dart';
@@ -19,34 +23,6 @@ class _TransactionsWidgetState extends State<TransactionsWidget> {
   final userUID = FirebaseAuth.instance.currentUser!.uid;
   final accentColor = const Color.fromRGBO(94, 98, 239, 1);
 
-  Stream<List<QueryDocumentSnapshot>> _transactionStream() {
-    final sentQuerySnapshots = FirebaseFirestore.instance
-        .collection('transactions')
-        .where('senderUID', isEqualTo: userUID)
-        .snapshots();
-
-    final receivedQuerySnapshots = FirebaseFirestore.instance
-        .collection('transactions')
-        .where('receiverUID', isEqualTo: userUID)
-        .snapshots();
-
-    return Rx.combineLatest2(sentQuerySnapshots, receivedQuerySnapshots,
-        (QuerySnapshot sentSnapshot, QuerySnapshot receivedSnapshot) {
-      final allDocuments = [
-        ...sentSnapshot.docs,
-        ...receivedSnapshot.docs,
-      ];
-
-      allDocuments.sort((a, b) {
-        final timestampA = a['date'] as Timestamp;
-        final timestampB = b['date'] as Timestamp;
-        return timestampB.compareTo(timestampA);
-      });
-
-      return allDocuments;
-    });
-  }
-
   String _sentOrReceivedFullName(RMTransaction transaction) {
     if (transaction.senderUID == userUID) {
       return transaction.receiverFullName;
@@ -57,18 +33,20 @@ class _TransactionsWidgetState extends State<TransactionsWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<QueryDocumentSnapshot>>(
-      stream: _transactionStream(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
+    return BlocBuilder<TransactionCubit, TransactionState>(
+      builder: (context, state) {
+        if (state is LoadingTransactionState) {
           return const CircularProgressIndicator();
-        } else if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
-        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+        } else if (state is FailedTransactionState) {
+          return Text(state.message);
+        } else if (state is SuccessTransactionState &&
+            state.transactions.isEmpty) {
           return const Text('No transactions found.');
         }
 
-        final myTransactions = snapshot.data!;
+        final myTransactions = state is SuccessTransactionState
+            ? state.transactions
+            : <QueryDocumentSnapshot>[];
         return ListView.builder(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
