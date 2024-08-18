@@ -8,6 +8,7 @@ class CardFrontWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final formattedName = "${fullName[0]}. ${fullName.split(' ')[1]}";
     return Container(
       height: 400,
       width: 275,
@@ -44,7 +45,7 @@ class CardFrontWidget extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(left: 16, bottom: 16),
               child: Text(
-                fullName,
+                fullName.length > 16 ? formattedName : fullName,
                 style: const TextStyle(
                     color: Colors.white,
                     fontSize: 20,

@@ -55,15 +55,6 @@ class TransactionCubit extends Cubit<TransactionState> {
       return;
     }
 
-    if (sender.uid == receiver.uid) {
-      const message = 'You cannot send money to yourself';
-      MessageToaster.showMessage(
-        message: message,
-        toastType: ToastType.error,
-      );
-      return;
-    }
-
     try {
       await FirebaseFirestore.instance
           .collection('users')
@@ -86,6 +77,7 @@ class TransactionCubit extends Cubit<TransactionState> {
       if (transaction != null) {
         MessageToaster.showMessage(
           message: 'Money sent successfully',
+          secondaryMessage: 'View transaction details',
           toastType: ToastType.success,
           onDismiss: () {
             TransactionDetailsRoute(transaction: transaction).push();

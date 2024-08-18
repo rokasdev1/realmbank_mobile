@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:realmbank_mobile/common/router_extras.dart';
+import 'package:realmbank_mobile/common/routes.dart';
 import 'package:realmbank_mobile/data/models/user.dart';
 import 'package:realmbank_mobile/presentation/common/providers/auth_cubit.dart';
 import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';
@@ -23,12 +25,15 @@ class ProfilePage extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(4),
                   decoration: BoxDecoration(
-                    color: const Color.fromRGBO(94, 98, 239, 1),
                     borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+                      color: const Color.fromRGBO(94, 98, 239, 1),
+                      width: 10,
+                    ),
                   ),
                   child: QrImageView(
                     backgroundColor: Colors.transparent,
-                    foregroundColor: Colors.white,
+                    foregroundColor: Colors.black,
                     data: user.cardNumber,
                     size: 125,
                   ),
@@ -99,14 +104,28 @@ class ProfilePage extends StatelessWidget {
                       ListTileWidget(
                         leading: Icons.arrow_upward_rounded,
                         text: 'Send money',
-                        onTap: () {},
+                        onTap: () {
+                          SendMoneyRoute(
+                            sendMoneyExtra: SendMoneyExtra(
+                              user: user,
+                              receiverCardNum: '',
+                            ),
+                          ).push();
+                        },
                         trailing: Icons.arrow_forward_ios_rounded,
                       ),
                       4.heightBox,
                       ListTileWidget(
                         leading: Icons.arrow_downward_rounded,
                         text: 'Receive money',
-                        onTap: () {},
+                        onTap: () {
+                          RequestMoneyRoute(
+                            requestMoneyExtra: RequestMoneyExtra(
+                              user: user,
+                              receiverCardNum: '',
+                            ),
+                          ).push();
+                        },
                         trailing: Icons.arrow_forward_ios_rounded,
                       ),
                       4.heightBox,

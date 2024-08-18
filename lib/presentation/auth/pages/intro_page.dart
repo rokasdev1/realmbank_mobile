@@ -49,13 +49,13 @@ class _IntroPageState extends State<IntroPage> {
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
               16.heightBox,
-              TextFieldwidget(
+              TextFieldWidget(
                 controller: nameController,
                 label: 'Name',
                 icon: Icons.person_outline,
               ),
               16.heightBox,
-              TextFieldwidget(
+              TextFieldWidget(
                 controller: lastNameController,
                 label: 'Last name',
                 icon: Icons.person,

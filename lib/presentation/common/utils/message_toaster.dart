@@ -85,23 +85,29 @@ class MessageToaster {
                     ),
                     16.widthBox,
                     Expanded(
-                      child: Text(
-                        message,
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            message,
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
+                          if (secondaryMessage != null)
+                            Text(
+                              secondaryMessage,
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 12,
+                              ),
+                            ),
+                        ],
                       ),
                     ),
-                    if (secondaryMessage != null)
-                      Text(
-                        secondaryMessage,
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 12,
-                        ),
-                      ),
                     if (onDismiss != null)
                       const Icon(
                         Icons.arrow_forward_ios_rounded,

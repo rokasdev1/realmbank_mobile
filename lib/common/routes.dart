@@ -1,3 +1,5 @@
+import 'package:flutter_zxing/flutter_zxing.dart';
+import 'package:realmbank_mobile/common/router_extras.dart';
 import 'package:realmbank_mobile/data/models/transaction.dart';
 import 'package:realmbank_mobile/data/models/user.dart';
 
@@ -56,13 +58,22 @@ class TransactionDetailsRoute extends RMRoute {
 }
 
 class SendMoneyRoute extends RMRoute {
-  SendMoneyRoute({
-    required RMUser user,
-  }) : super(
+  SendMoneyRoute({required SendMoneyExtra sendMoneyExtra})
+      : super(
           name: 'sendMoney',
-          path: 'send-money',
+          path: '/send-money',
           params: {},
-          extra: user,
+          extra: sendMoneyExtra,
+        );
+}
+
+class RequestMoneyRoute extends RMRoute {
+  RequestMoneyRoute({required RequestMoneyExtra requestMoneyExtra})
+      : super(
+          name: 'requestMoney',
+          path: '/request-money',
+          params: {},
+          extra: requestMoneyExtra,
         );
 }
 
@@ -71,6 +82,15 @@ class IntroPageRoute extends RMRoute {
       : super(
           name: 'introPage',
           path: '/intro-page',
+          params: {},
+        );
+}
+
+class QrScanRoute extends RMRoute {
+  QrScanRoute()
+      : super(
+          name: 'qrScan',
+          path: '/qr-scan',
           params: {},
         );
 }

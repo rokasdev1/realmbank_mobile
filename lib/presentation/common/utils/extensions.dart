@@ -22,6 +22,23 @@ extension ContextExtensions on BuildContext {
         pathParameters: route.params,
         extra: route.extra,
       );
+
+  Future<T?> showBottomSheet<T>(
+    Widget Function(BuildContext) builder, {
+    Color? backgroundColor = Colors.transparent,
+    double? elevation = 0,
+    bool isScrollControlled = true,
+    Color? barrierColor,
+  }) {
+    return showModalBottomSheet<T>(
+      context: this,
+      builder: builder,
+      isScrollControlled: isScrollControlled,
+      backgroundColor: backgroundColor,
+      elevation: elevation,
+      barrierColor: barrierColor,
+    );
+  }
 }
 
 extension RMRouteX on RMRoute {

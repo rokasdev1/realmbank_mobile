@@ -11,26 +11,46 @@ import 'package:realmbank_mobile/presentation/common/widgets/big_button.dart';
 import 'package:realmbank_mobile/presentation/common/widgets/text_field_widget.dart';
 
 class SendMoneyPage extends StatefulWidget {
-  const SendMoneyPage({super.key, required this.sender});
+  const SendMoneyPage({
+    super.key,
+    required this.sender,
+    required this.receiverCardNum,
+    this.amount,
+    this.description,
+    this.canEdit,
+  });
   final RMUser sender;
+  final String receiverCardNum;
+  final double? amount;
+  final String? description;
+  final bool? canEdit;
 
   @override
   State<SendMoneyPage> createState() => _SendMoneyPageState();
 }
 
 class _SendMoneyPageState extends State<SendMoneyPage> {
-  final userController = TextEditingController();
+  final cardNumController = TextEditingController();
   final amountController = TextEditingController();
   final descriptionController = TextEditingController();
 
   @override
   void initState() {
+    if (widget.receiverCardNum != '') {
+      cardNumController.text = widget.receiverCardNum.substring(2);
+    }
+    if (widget.amount != null) {
+      amountController.text = widget.amount.toString();
+    }
+    if (widget.description != null) {
+      descriptionController.text = widget.description!;
+    }
     super.initState();
   }
 
   @override
   void dispose() {
-    userController.dispose();
+    cardNumController.dispose();
     amountController.dispose();
     descriptionController.dispose();
     super.dispose();
@@ -58,19 +78,28 @@ class _SendMoneyPageState extends State<SendMoneyPage> {
               style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
             ),
             36.heightBox,
-            TextFieldwidget(
-              controller: userController,
-              label: 'User',
+            TextFieldWidget(
+              canEdit: widget.canEdit,
+              keyboardType: TextInputType.number,
+              longerHintText: false,
+              controller: cardNumController,
+              prefixText: 'RM',
+              label: 'Card number',
               icon: Icons.person_2_outlined,
             ),
             8.heightBox,
-            TextFieldwidget(
+            TextFieldWidget(
+              canEdit: widget.canEdit,
+              keyboardType: TextInputType.number,
+              longerHintText: false,
               controller: amountController,
               label: 'Amount',
               icon: Icons.attach_money,
             ),
             8.heightBox,
-            TextFieldwidget(
+            TextFieldWidget(
+              canEdit: widget.canEdit,
+              longerHintText: false,
               controller: descriptionController,
               label: 'Description',
               icon: Icons.description_outlined,
@@ -79,8 +108,9 @@ class _SendMoneyPageState extends State<SendMoneyPage> {
             BigButton(
               label: 'Send',
               onTap: () async {
-                final receiver = await findUserWithCardNum(userController.text);
-                if (receiver == null) {
+                final receiver =
+                    await findUserWithCardNum('RM${cardNumController.text}');
+                if (receiver == null || receiver.uid == widget.sender.uid) {
                   MessageToaster.showMessage(
                     message: 'User not found',
                     toastType: ToastType.error,
@@ -94,7 +124,8 @@ class _SendMoneyPageState extends State<SendMoneyPage> {
                   );
                   return;
                 }
-                if (double.parse(amountController.text) <= 0) {
+                if (double.parse(amountController.text) <= 0 ||
+                    amountController.text.isEmpty) {
                   MessageToaster.showMessage(
                     message: 'Amount must be greater than 0',
                     toastType: ToastType.error,

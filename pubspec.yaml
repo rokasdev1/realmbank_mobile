@@ -47,9 +47,9 @@ dependencies:
   flutter_bloc: ^8.1.6
   google_sign_in: ^6.2.1
   animated_flip_widget: ^0.0.2
-
   salomon_bottom_bar: ^3.3.2
   fluttertoast: ^8.2.8
+  flutter_zxing: ^1.7.0
 
 dev_dependencies:
   flutter_test:

@@ -1,6 +1,7 @@
 import 'package:animated_flip_widget/animated_flip_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:realmbank_mobile/common/router.dart';
+import 'package:realmbank_mobile/common/router_extras.dart';
 import 'package:realmbank_mobile/common/routes.dart';
 import 'package:realmbank_mobile/data/enums/toast_type.dart';
 import 'package:realmbank_mobile/data/models/user.dart';
@@ -48,18 +49,32 @@ class CardPage extends StatelessWidget {
                       icon: Icons.arrow_upward_rounded,
                       title: 'Send',
                       onTap: () {
-                        SendMoneyRoute(user: user).push();
+                        SendMoneyRoute(
+                          sendMoneyExtra: SendMoneyExtra(
+                            user: user,
+                            receiverCardNum: '',
+                          ),
+                        ).push();
                       },
                     ),
                     TileWidget(
-                      onTap: () {},
+                      onTap: () {
+                        RequestMoneyRoute(
+                          requestMoneyExtra: RequestMoneyExtra(
+                            user: user,
+                            receiverCardNum: '',
+                          ),
+                        ).push();
+                      },
                       icon: Icons.arrow_downward_rounded,
                       title: 'Request',
                     ),
                     TileWidget(
-                      onTap: () {},
+                      onTap: () async {
+                        QrScanRoute().push();
+                      },
                       icon: Icons.qr_code_rounded,
-                      title: 'Send with QR',
+                      title: 'Scan QR',
                     ),
                   ],
                 ),
