@@ -9,6 +9,7 @@ import 'package:realmbank_mobile/data/models/transaction.dart';
 import 'package:realmbank_mobile/presentation/common/providers/transaction_cubit.dart';
 import 'package:realmbank_mobile/presentation/common/utils/date_converter.dart';
 import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';
+import 'package:realmbank_mobile/presentation/common/widgets/date_list_tile.dart';
 import 'package:realmbank_mobile/presentation/home/widgets/transaction_money_widget.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -55,48 +56,17 @@ class _TransactionsWidgetState extends State<TransactionsWidget> {
             final transactionData =
                 myTransactions[index].data() as Map<String, dynamic>;
             final transaction = RMTransaction.fromJson(transactionData);
-            return GestureDetector(
+
+            return DateListTile(
               onTap: () {
                 context.pushRoute(
                     TransactionDetailsRoute(transaction: transaction));
               },
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        CircleAvatar(
-                          backgroundColor: Colors.grey.shade100,
-                          radius: 25,
-                          child: Icon(
-                            Icons.send_to_mobile,
-                            color: accentColor,
-                          ),
-                        ),
-                        16.widthBox,
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              _sentOrReceivedFullName(transaction),
-                              style: const TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              dateConvert(transaction.date),
-                              style: const TextStyle(color: Colors.grey),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    TransactionMoneyWidget(
-                        transaction: transaction, userUID: userUID),
-                  ],
-                ),
-              ),
+              icon: Icons.send_to_mobile,
+              title: _sentOrReceivedFullName(transaction),
+              trailing: TransactionMoneyWidget(
+                  transaction: transaction, userUID: userUID),
+              date: transaction.date,
             );
           },
         );

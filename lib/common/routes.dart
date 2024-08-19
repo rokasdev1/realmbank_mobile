@@ -94,3 +94,12 @@ class QrScanRoute extends RMRoute {
           params: {},
         );
 }
+
+class RequestsRoute extends RMRoute {
+  RequestsRoute()
+      : super(
+          name: 'requests',
+          path: '/requests',
+          params: {},
+        );
+}

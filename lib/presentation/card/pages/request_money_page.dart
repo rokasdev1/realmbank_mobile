@@ -6,6 +6,8 @@ import 'package:go_router/go_router.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:realmbank_mobile/data/enums/toast_type.dart';
 import 'package:realmbank_mobile/data/models/user.dart';
+import 'package:realmbank_mobile/presentation/card/widgets/qr_dialog.dart';
+import 'package:realmbank_mobile/presentation/common/providers/request_cubit.dart';
 import 'package:realmbank_mobile/presentation/common/providers/transaction_cubit.dart';
 import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';
 import 'package:realmbank_mobile/presentation/common/utils/find_user_utils.dart';
@@ -28,6 +30,7 @@ class _RequestMoneyPageState extends State<RequestMoneyPage> {
   final cardNumController = TextEditingController();
   final amountController = TextEditingController();
   final descriptionController = TextEditingController();
+  bool withQR = false;
 
   @override
   void initState() {
@@ -59,114 +62,128 @@ class _RequestMoneyPageState extends State<RequestMoneyPage> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            16.heightBox,
-            const Text(
-              'Request money',
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-            ),
-            36.heightBox,
-            TextFieldWidget(
-              keyboardType: TextInputType.number,
-              longerHintText: false,
-              controller: amountController,
-              label: 'Amount',
-              icon: Icons.attach_money,
-            ),
-            8.heightBox,
-            TextFieldWidget(
-              longerHintText: false,
-              controller: descriptionController,
-              label: 'Description',
-              icon: Icons.description_outlined,
-            ),
-            16.heightBox,
-            BigButton(
-              label: 'Generate QR Code',
-              onTap: () async {
-                // final user =
-                //     await findUserWithCardNum('RM${cardNumController.text}');
-                // if (user == null || user.uid == widget.user.uid) {
-                //   MessageToaster.showMessage(
-                //     message: 'User not found',
-                //     toastType: ToastType.error,
-                //   );
-                //   return;
-                // }
-                if (descriptionController.text.isEmpty) {
-                  MessageToaster.showMessage(
-                    message: 'Description cannot be empty',
-                    toastType: ToastType.error,
-                  );
-                  return;
-                }
-                if (double.parse(amountController.text) <= 0 ||
-                    amountController.text.isEmpty) {
-                  MessageToaster.showMessage(
-                    message: 'Amount must be greater than 0',
-                    toastType: ToastType.error,
-                  );
-                  return;
-                }
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                16.heightBox,
+                const Text(
+                  'Request money',
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                ),
+                36.heightBox,
+                if (withQR == false) ...[
+                  TextFieldWidget(
+                    keyboardType: TextInputType.number,
+                    prefixText: 'RM',
+                    topText: 'Request from',
+                    longerHintText: false,
+                    controller: cardNumController,
+                    label: 'Card number',
+                    icon: Icons.attach_money,
+                  ),
+                  8.heightBox,
+                ],
+                TextFieldWidget(
+                  keyboardType: TextInputType.number,
+                  longerHintText: false,
+                  controller: amountController,
+                  label: 'Amount',
+                  icon: Icons.attach_money,
+                ),
+                8.heightBox,
+                TextFieldWidget(
+                  longerHintText: false,
+                  controller: descriptionController,
+                  label: 'Description',
+                  icon: Icons.description_outlined,
+                ),
+                16.heightBox,
+                withQR
+                    ? BigButton(
+                        label: 'Generate QR Code',
+                        onTap: () async {
+                          if (descriptionController.text.isEmpty) {
+                            MessageToaster.showMessage(
+                              message: 'Description cannot be empty',
+                              toastType: ToastType.error,
+                            );
+                            return;
+                          }
+                          if (double.parse(amountController.text) <= 0 ||
+                              amountController.text.isEmpty) {
+                            MessageToaster.showMessage(
+                              message: 'Amount must be greater than 0',
+                              toastType: ToastType.error,
+                            );
+                            return;
+                          }
+                          return showDialog(
+                            context: context,
+                            builder: (context) {
+                              return QrDialog(
+                                data: qrCodeGen(
+                                  requestorCardNum: widget.user.cardNumber,
+                                  amount: double.parse(amountController.text),
+                                  description: descriptionController.text,
+                                ),
+                              );
+                            },
+                          );
+                        },
+                      )
+                    : BigButton(
+                        label: 'Send Request',
+                        onTap: () async {
+                          final user = await findUserWithCardNum(
+                              'RM${cardNumController.text}');
+                          if (user == null || user.uid == widget.user.uid) {
+                            MessageToaster.showMessage(
+                              message: 'User not found',
+                              toastType: ToastType.error,
+                            );
+                            return;
+                          }
 
-                return showDialog(
-                  context: context,
-                  builder: (context) {
-                    return BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                      child: AlertDialog(
-                        backgroundColor: Colors.white,
-                        content: Container(
-                          padding: const EdgeInsets.all(8),
-                          height: 325,
-                          width: 250,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.all(4),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  border: Border.all(
-                                    color: const Color.fromRGBO(94, 98, 239, 1),
-                                    width: 10,
-                                  ),
-                                ),
-                                child: QrImageView(
-                                  backgroundColor: Colors.transparent,
-                                  foregroundColor: Colors.black,
-                                  data: qrCodeGen(
-                                    requestorCardNum: widget.user.cardNumber,
-                                    amount: double.parse(amountController.text),
-                                    description: descriptionController.text,
-                                  ),
-                                  size: 200,
-                                ),
-                              ),
-                              // Text(
-                              //   'Request to ${user.name}',
-                              //   style: const TextStyle(
-                              //     fontSize: 20,
-                              //     fontWeight: FontWeight.bold,
-                              //   ),
-                              // ),
-                              BigButton(
-                                label: 'Close',
-                                onTap: () {
-                                  context.pop();
-                                  context.pop();
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
+                          if (descriptionController.text.isEmpty) {
+                            MessageToaster.showMessage(
+                              message: 'Description cannot be empty',
+                              toastType: ToastType.error,
+                            );
+                            return;
+                          }
+                          if (double.parse(amountController.text) <= 0 ||
+                              amountController.text.isEmpty) {
+                            MessageToaster.showMessage(
+                              message: 'Amount must be greater than 0',
+                              toastType: ToastType.error,
+                            );
+                            return;
+                          }
+                          await context.read<RequestCubit>().sendRequest(
+                                requestor: widget.user,
+                                requestee: user,
+                                amount: double.parse(amountController.text),
+                                description: descriptionController.text,
+                              );
+                          context.pop();
+                        },
                       ),
-                    );
-                  },
-                );
-              },
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 25),
+              child: BigButton(
+                label:
+                    withQR ? 'Request directly instead' : 'Request via QR code',
+                onTap: () {
+                  setState(() {
+                    withQR = !withQR;
+                  });
+                },
+                inverted: true,
+              ),
             ),
           ],
         ),

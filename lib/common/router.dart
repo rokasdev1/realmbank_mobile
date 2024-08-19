@@ -10,6 +10,7 @@ import 'package:realmbank_mobile/presentation/auth/pages/login_register.dart';
 import 'package:realmbank_mobile/presentation/auth/pages/start_page.dart';
 import 'package:realmbank_mobile/presentation/card/pages/qr_scan_page.dart';
 import 'package:realmbank_mobile/presentation/card/pages/request_money_page.dart';
+import 'package:realmbank_mobile/presentation/card/pages/requests_page.dart';
 import 'package:realmbank_mobile/presentation/card/pages/send_money_page.dart';
 import 'package:realmbank_mobile/presentation/home/pages/transaction_details_page.dart';
 import 'package:realmbank_mobile/presentation/auth/pages/intro_page.dart';
@@ -65,11 +66,13 @@ class RMRouter {
         builder: (context, state) {
           final extra = state.extra! as SendMoneyExtra;
           return SendMoneyPage(
-            sender: extra.user,
+            sender: extra.sender,
             receiverCardNum: extra.receiverCardNum,
+            receiver: extra.receiver,
             amount: extra.amount,
             description: extra.description,
-            canEdit: extra.canEdit,
+            isRequest: extra.isRequest,
+            requestId: extra.requestId,
           );
         },
       ),
@@ -89,6 +92,13 @@ class RMRouter {
         path: '/qr-scan',
         builder: (context, state) {
           return const QrScanPage();
+        },
+      ),
+      GoRoute(
+        name: 'requests',
+        path: '/requests',
+        builder: (context, state) {
+          return const RequestsPage();
         },
       ),
     ],

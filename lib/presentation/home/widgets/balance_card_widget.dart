@@ -12,6 +12,7 @@ class BalanceCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: MediaQuery.of(context).size.height * 0.2,
       padding: const EdgeInsets.all(16),
       margin: const EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
@@ -27,61 +28,66 @@ class BalanceCardWidget extends StatelessWidget {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             children: [
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SvgPicture.asset(
-                    'assets/realmlogo.svg',
-                    height: 35,
-                    width: 35,
-                    color: Colors.white,
-                  ),
-                  8.widthBox,
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  Row(
                     children: [
-                      Text(
-                        fullName(user.name, user.lastName),
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold),
+                      SvgPicture.asset(
+                        'assets/realmlogo.svg',
+                        height: 35,
+                        width: 35,
+                        color: Colors.white,
                       ),
-                      Text(
-                        user.cardNumber,
-                        style: TextStyle(
-                          color: Colors.white.withOpacity(0.5),
-                          fontSize: 15,
-                        ),
+                      8.widthBox,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            fullName(user.name, user.lastName),
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            user.cardNumber,
+                            style: TextStyle(
+                              color: Colors.white.withOpacity(0.5),
+                              fontSize: 15,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                    ),
+                    child: const Text(
+                      'USD',
+                      style: TextStyle(
+                          color: Color.fromRGBO(94, 98, 239, 1),
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
                 ],
               ),
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.white,
-                ),
-                child: const Text(
-                  'USD',
-                  style: TextStyle(
-                      color: Color.fromRGBO(94, 98, 239, 1),
-                      fontWeight: FontWeight.bold),
-                ),
+              8.heightBox,
+              Divider(
+                color: Colors.white.withOpacity(0.2),
               ),
             ],
           ),
-          8.heightBox,
-          Divider(
-            color: Colors.white.withOpacity(0.5),
-          ),
-          36.heightBox,
           MoneyWidget(money: user.balance),
         ],
       ),

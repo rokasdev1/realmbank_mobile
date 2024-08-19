@@ -52,7 +52,7 @@ class _QrScanPageState extends State<QrScanPage> {
                   final cardNum = result.text!;
                   SendMoneyRoute(
                       sendMoneyExtra: SendMoneyExtra(
-                    user: user,
+                    sender: user,
                     receiverCardNum: cardNum,
                   )).push();
                   return;
@@ -73,11 +73,11 @@ class _QrScanPageState extends State<QrScanPage> {
                   }
                   SendMoneyRoute(
                     sendMoneyExtra: SendMoneyExtra(
-                      user: user,
+                      sender: user,
                       receiverCardNum: requestorCardNum,
                       amount: double.parse(amount),
                       description: description,
-                      canEdit: false,
+                      isRequest: true,
                     ),
                   ).push();
                   return;

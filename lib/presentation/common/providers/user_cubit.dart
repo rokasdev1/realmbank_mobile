@@ -7,15 +7,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:realmbank_mobile/data/models/transaction.dart';
 import 'package:realmbank_mobile/data/models/user.dart';
 import 'package:realmbank_mobile/data/repositories/user_repository.dart';
+import 'package:realmbank_mobile/presentation/common/providers/request_cubit.dart';
 import 'package:realmbank_mobile/presentation/common/providers/transaction_cubit.dart';
 import 'package:realmbank_mobile/presentation/common/utils/card_number_generator.dart';
 import 'package:realmbank_mobile/presentation/common/utils/full_name.dart';
 
 class UserCubit extends Cubit<UserState> {
-  UserCubit({required this.transactionCubit, required this.userRepository})
+  UserCubit(
+      {required this.transactionCubit,
+      required this.userRepository,
+      required this.requestCubit})
       : super(InitialUserState());
 
   final TransactionCubit transactionCubit;
+  final RequestCubit requestCubit;
   final UserRepository userRepository;
   StreamSubscription? userStateChanges;
 
@@ -42,6 +47,7 @@ class UserCubit extends Cubit<UserState> {
         },
       );
       transactionCubit.getTransactions();
+      requestCubit.getReceivedRequests();
     } catch (e) {
       log('UserCubit.init: Error: $e');
       emit(FailedUserState(e.toString()));

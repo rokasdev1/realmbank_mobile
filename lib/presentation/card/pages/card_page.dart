@@ -22,28 +22,39 @@ class CardPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        toolbarHeight: 75,
-        title: const Text(
-          'Card',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40),
-        ),
-        centerTitle: true,
-      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             children: [
-              16.heightBox,
+              48.heightBox,
+              const Text(
+                'Card',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40),
+              ),
+              36.heightBox,
+              Center(
+                child: AnimatedFlipWidget(
+                  flipDirection: FlipDirection.horizontal,
+                  flipDuration: const Duration(milliseconds: 500),
+                  front: CardFrontWidget(
+                    fullName: fullName(user.name, user.lastName),
+                  ),
+                  back: CardBackWidget(
+                    user: user,
+                  ),
+                  controller: controller,
+                ),
+              ),
+              36.heightBox,
               Container(
                 decoration: BoxDecoration(
                   color: Colors.grey.shade200,
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                child: Wrap(
+                  spacing: 25,
+                  alignment: WrapAlignment.center,
                   children: [
                     TileWidget(
                       icon: Icons.arrow_upward_rounded,
@@ -51,7 +62,7 @@ class CardPage extends StatelessWidget {
                       onTap: () {
                         SendMoneyRoute(
                           sendMoneyExtra: SendMoneyExtra(
-                            user: user,
+                            sender: user,
                             receiverCardNum: '',
                           ),
                         ).push();
@@ -70,27 +81,20 @@ class CardPage extends StatelessWidget {
                       title: 'Request',
                     ),
                     TileWidget(
-                      onTap: () async {
+                      onTap: () {
                         QrScanRoute().push();
                       },
                       icon: Icons.qr_code_rounded,
                       title: 'Scan QR',
                     ),
+                    TileWidget(
+                      onTap: () {
+                        RequestsRoute().push();
+                      },
+                      icon: Icons.request_page_outlined,
+                      title: 'Requests',
+                    ),
                   ],
-                ),
-              ),
-              36.heightBox,
-              Center(
-                child: AnimatedFlipWidget(
-                  flipDirection: FlipDirection.horizontal,
-                  flipDuration: const Duration(milliseconds: 500),
-                  front: CardFrontWidget(
-                    fullName: fullName(user.name, user.lastName),
-                  ),
-                  back: CardBackWidget(
-                    user: user,
-                  ),
-                  controller: controller,
                 ),
               ),
             ],

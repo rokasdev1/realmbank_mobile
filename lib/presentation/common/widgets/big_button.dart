@@ -6,10 +6,12 @@ class BigButton extends StatefulWidget {
     required this.label,
     required this.onTap,
     this.disabled = false,
+    this.inverted = false,
   });
   final String label;
   final VoidCallback onTap;
   bool disabled = false;
+  bool inverted = false;
 
   @override
   State<BigButton> createState() => _BigButtonState();
@@ -25,17 +27,25 @@ class _BigButtonState extends State<BigButton> {
         padding: const EdgeInsets.symmetric(vertical: 16),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
+          border: widget.inverted
+              ? Border.all(
+                  color: const Color.fromRGBO(94, 98, 239, 1), width: 2)
+              : null,
           color: widget.disabled
               ? Colors.grey
-              : const Color.fromRGBO(94, 98, 239, 1),
+              : widget.inverted
+                  ? Colors.white
+                  : const Color.fromRGBO(94, 98, 239, 1),
         ),
         child: Center(
           child: Text(
             widget.label,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
-              color: Colors.white,
+              color: widget.inverted
+                  ? const Color.fromRGBO(94, 98, 239, 1)
+                  : Colors.white,
             ),
           ),
         ),

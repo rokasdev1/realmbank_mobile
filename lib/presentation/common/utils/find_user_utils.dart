@@ -14,6 +14,18 @@ Future<RMUser?> findUserWithCardNum(String cardNumber) async {
   return user;
 }
 
+Future<RMUser?> findUserWithUID(String uid) async {
+  final matchingDoc =
+      await FirebaseFirestore.instance.collection('users').doc(uid).get();
+  final docData = matchingDoc.data();
+  if (docData == null) {
+    return null;
+  }
+
+  final user = RMUser.fromJson(docData);
+  return user;
+}
+
 Future<List<RMUser>> findUsersWithUID(
     String senderUID, String receiverUID) async {
   final senderMatchingDocs = await FirebaseFirestore.instance

@@ -4,10 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:realmbank_mobile/common/router.dart';
 import 'package:realmbank_mobile/common/routes.dart';
 import 'package:realmbank_mobile/data/repositories/authentication_repository.dart';
+import 'package:realmbank_mobile/data/repositories/request_repository.dart';
 import 'package:realmbank_mobile/data/repositories/transaction_repository.dart';
 import 'package:realmbank_mobile/data/repositories/user_repository.dart';
 import 'package:realmbank_mobile/firebase_options.dart';
 import 'package:realmbank_mobile/presentation/common/providers/auth_cubit.dart';
+import 'package:realmbank_mobile/presentation/common/providers/request_cubit.dart';
 import 'package:realmbank_mobile/presentation/common/providers/transaction_cubit.dart';
 import 'package:realmbank_mobile/presentation/common/providers/user_cubit.dart';
 
@@ -34,6 +36,7 @@ class _MyAppState extends State<MyApp> {
   final authenticationRepository = AuthenticationRepository();
   final userRepository = UserRepository();
   final transactionRepository = TransactionRepository();
+  final requestRepository = RequestRepository();
 
   @override
   void initState() {
@@ -47,6 +50,13 @@ class _MyAppState extends State<MyApp> {
       providers: [
         BlocProvider(
           create: (_) {
+            final requestCubit =
+                RequestCubit(requestRepository: requestRepository);
+            return requestCubit;
+          },
+        ),
+        BlocProvider(
+          create: (_) {
             final transactionCubit =
                 TransactionCubit(transactionRepository: transactionRepository);
             return transactionCubit;
@@ -55,7 +65,9 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(
           create: (_) {
             final transactionCubit = _.read<TransactionCubit>();
+            final requestCubit = _.read<RequestCubit>();
             final userCubit = UserCubit(
+                requestCubit: requestCubit,
                 userRepository: userRepository,
                 transactionCubit: transactionCubit);
             return userCubit;

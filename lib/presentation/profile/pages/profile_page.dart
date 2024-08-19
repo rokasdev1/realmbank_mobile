@@ -7,6 +7,7 @@ import 'package:realmbank_mobile/data/models/user.dart';
 import 'package:realmbank_mobile/presentation/common/providers/auth_cubit.dart';
 import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';
 import 'package:realmbank_mobile/presentation/common/widgets/list_tile_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key, required this.user});
@@ -107,7 +108,7 @@ class ProfilePage extends StatelessWidget {
                         onTap: () {
                           SendMoneyRoute(
                             sendMoneyExtra: SendMoneyExtra(
-                              user: user,
+                              sender: user,
                               receiverCardNum: '',
                             ),
                           ).push();
@@ -139,7 +140,12 @@ class ProfilePage extends StatelessWidget {
                       ListTileWidget(
                         leading: Icons.perm_device_information_outlined,
                         text: 'About Realm Bank',
-                        onTap: () {},
+                        onTap: () {
+                          launchUrl(
+                            Uri.parse(
+                                'https://github.com/rokasdev1/realmbank_mobile'),
+                          );
+                        },
                         trailing: Icons.arrow_forward_ios_rounded,
                       ),
                     ],

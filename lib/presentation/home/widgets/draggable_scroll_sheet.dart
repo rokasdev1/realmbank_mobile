@@ -3,8 +3,12 @@ import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';
 import 'package:realmbank_mobile/presentation/home/widgets/transactions_widget.dart';
 
 class DraggableScrollSheet extends StatefulWidget {
-  DraggableScrollSheet({super.key, required this.sheetController});
+  DraggableScrollSheet(
+      {super.key,
+      required this.sheetController,
+      required this.initialChildSize});
   DraggableScrollableController sheetController;
+  final double initialChildSize;
 
   @override
   State<DraggableScrollSheet> createState() => _DraggableScrollSheetState();
@@ -17,8 +21,8 @@ class _DraggableScrollSheetState extends State<DraggableScrollSheet> {
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
       controller: widget.sheetController,
-      initialChildSize: 0.62,
-      minChildSize: 0.62,
+      initialChildSize: widget.initialChildSize,
+      minChildSize: widget.initialChildSize,
       snap: true,
       maxChildSize: 1,
       builder: (context, scrollController) {
@@ -66,7 +70,8 @@ class _DraggableScrollSheetState extends State<DraggableScrollSheet> {
                                       duration:
                                           const Duration(milliseconds: 500),
                                       curve: Curves.decelerate)
-                                  : widget.sheetController.animateTo(0.62,
+                                  : widget.sheetController.animateTo(
+                                      widget.initialChildSize,
                                       duration:
                                           const Duration(milliseconds: 500),
                                       curve: Curves.decelerate);
