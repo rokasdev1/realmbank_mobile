@@ -45,6 +45,9 @@ class MessageToaster {
       case ToastType.warning:
         color = Colors.orange.shade300;
         toastIcon = Icons.warning_amber_rounded;
+      case ToastType.info:
+        color = Colors.blue;
+        toastIcon = Icons.info_outline;
     }
 
     _fToast = FToast();

@@ -15,8 +15,21 @@ class RequestRepository {
         .collection('requests')
         .where('requesteeUID', isEqualTo: userUID)
         .snapshots();
-
     return receivedRequestsStream;
+  }
+
+  Future<QuerySnapshot?> getSentRequests() async {
+    final userUID = FirebaseAuth.instance.currentUser?.uid;
+
+    if (userUID == null) {
+      return null;
+    }
+
+    final sentRequestsStream = await FirebaseFirestore.instance
+        .collection('requests')
+        .where('requestorUID', isEqualTo: userUID)
+        .get();
+    return sentRequestsStream;
   }
 
   Future<void> createRequest({

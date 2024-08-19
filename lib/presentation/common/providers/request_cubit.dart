@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:realmbank_mobile/data/enums/toast_type.dart';
+import 'package:realmbank_mobile/data/models/request.dart';
 import 'package:realmbank_mobile/data/models/user.dart';
 import 'package:realmbank_mobile/data/repositories/request_repository.dart';
 import 'package:realmbank_mobile/presentation/common/providers/transaction_cubit.dart';
@@ -14,24 +15,47 @@ class RequestCubit extends Cubit<RequestState> {
       : super(InitialRequestState());
 
   final RequestRepository requestRepository;
-  StreamSubscription? requestStateChanges;
+  StreamSubscription? receivedRequestStateChanges;
 
   Future<void> getReceivedRequests() async {
-    requestStateChanges?.cancel();
+    receivedRequestStateChanges?.cancel();
     try {
       emit(LoadingRequestState());
-      requestStateChanges =
+      receivedRequestStateChanges =
           requestRepository.getReceivedRequestsStream().listen(
         (requests) {
           final allRequests = requests.docs;
           emit(
             SuccessRequestState(requests: allRequests),
           );
+          if (allRequests.isNotEmpty) {
+            MessageToaster.showMessage(
+              message: 'You have new requests',
+              toastType: ToastType.info,
+            );
+          }
         },
       );
     } catch (e) {
       log('RequestCubit.getReceivedRequests: Error: $e');
       emit(FailedRequestState(e.toString()));
+    }
+  }
+
+  Future<List<Request>> getSentRequests() async {
+    try {
+      final requestDocs = await requestRepository.getSentRequests();
+      if (requestDocs == null) {
+        return [];
+      }
+      final requests = requestDocs.docs
+          .map((doc) => Request.fromJson(doc.data() as Map<String, dynamic>))
+          .toList();
+      return requests;
+    } catch (e) {
+      log('RequestCubit.getReceivedRequests: Error: $e');
+      emit(FailedRequestState(e.toString()));
+      return [];
     }
   }
 
