@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';
 
 class CardFrontWidget extends StatelessWidget {
   const CardFrontWidget({super.key, required this.fullName});

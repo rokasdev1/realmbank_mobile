@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_zxing/flutter_zxing.dart';
@@ -7,7 +5,6 @@ import 'package:go_router/go_router.dart';
 import 'package:realmbank_mobile/common/router_extras.dart';
 import 'package:realmbank_mobile/common/routes.dart';
 import 'package:realmbank_mobile/data/enums/toast_type.dart';
-import 'package:realmbank_mobile/presentation/auth/pages/intro_page.dart';
 import 'package:realmbank_mobile/presentation/common/providers/user_cubit.dart';
 import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';
 import 'package:realmbank_mobile/presentation/common/utils/message_toaster.dart';

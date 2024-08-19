@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:realmbank_mobile/presentation/card/pages/card_page.dart';
-import 'package:realmbank_mobile/presentation/common/providers/transaction_cubit.dart';
 import 'package:realmbank_mobile/presentation/common/providers/user_cubit.dart';
 import 'package:realmbank_mobile/presentation/home/pages/home_page.dart';
 import 'package:realmbank_mobile/presentation/profile/pages/profile_page.dart';

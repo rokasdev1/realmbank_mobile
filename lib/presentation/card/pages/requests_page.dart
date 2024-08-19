@@ -5,7 +5,6 @@ import 'package:realmbank_mobile/common/router_extras.dart';
 import 'package:realmbank_mobile/common/routes.dart';
 import 'package:realmbank_mobile/data/models/request.dart';
 import 'package:realmbank_mobile/data/models/user.dart';
-import 'package:realmbank_mobile/presentation/auth/pages/intro_page.dart';
 import 'package:realmbank_mobile/presentation/common/providers/request_cubit.dart';
 import 'package:realmbank_mobile/presentation/common/providers/user_cubit.dart';
 import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:realmbank_mobile/data/models/user.dart';
-import 'package:realmbank_mobile/presentation/auth/pages/intro_page.dart';
 import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';
 
 class CardBackWidget extends StatelessWidget {
@@ -17,8 +16,8 @@ class CardBackWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         image: const DecorationImage(
           colorFilter: ColorFilter.mode(
-            Color.fromRGBO(0, 0, 0, 0.412), // The color to blend with the image
-            BlendMode.srcIn, // The blend mode to apply
+            Color.fromRGBO(0, 0, 0, 0.412),
+            BlendMode.srcIn,
           ),
           image: AssetImage('assets/rmbg3-inv.png'),
         ),

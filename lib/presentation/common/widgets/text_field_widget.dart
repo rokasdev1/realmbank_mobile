@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';
 
+// ignore: must_be_immutable
 class TextFieldWidget extends StatefulWidget {
   TextFieldWidget(
       {super.key,

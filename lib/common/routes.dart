@@ -1,7 +1,5 @@
-import 'package:flutter_zxing/flutter_zxing.dart';
 import 'package:realmbank_mobile/common/router_extras.dart';
 import 'package:realmbank_mobile/data/models/transaction.dart';
-import 'package:realmbank_mobile/data/models/user.dart';
 
 abstract class RMRoute {
   const RMRoute({

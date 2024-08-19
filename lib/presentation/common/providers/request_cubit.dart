@@ -7,7 +7,6 @@ import 'package:realmbank_mobile/data/enums/toast_type.dart';
 import 'package:realmbank_mobile/data/models/request.dart';
 import 'package:realmbank_mobile/data/models/user.dart';
 import 'package:realmbank_mobile/data/repositories/request_repository.dart';
-import 'package:realmbank_mobile/presentation/common/providers/transaction_cubit.dart';
 import 'package:realmbank_mobile/presentation/common/utils/message_toaster.dart';
 
 class RequestCubit extends Cubit<RequestState> {

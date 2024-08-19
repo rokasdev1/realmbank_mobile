@@ -1,14 +1,10 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 import 'package:realmbank_mobile/data/enums/toast_type.dart';
 import 'package:realmbank_mobile/data/models/user.dart';
 import 'package:realmbank_mobile/presentation/card/widgets/qr_dialog.dart';
 import 'package:realmbank_mobile/presentation/common/providers/request_cubit.dart';
-import 'package:realmbank_mobile/presentation/common/providers/transaction_cubit.dart';
 import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';
 import 'package:realmbank_mobile/presentation/common/utils/find_user_utils.dart';
 import 'package:realmbank_mobile/presentation/common/utils/message_toaster.dart';

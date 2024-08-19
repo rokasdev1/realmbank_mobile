@@ -1,16 +1,12 @@
 import 'package:animated_flip_widget/animated_flip_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:realmbank_mobile/common/router.dart';
 import 'package:realmbank_mobile/common/router_extras.dart';
 import 'package:realmbank_mobile/common/routes.dart';
-import 'package:realmbank_mobile/data/enums/toast_type.dart';
 import 'package:realmbank_mobile/data/models/user.dart';
 import 'package:realmbank_mobile/presentation/card/widgets/card_back_widget.dart';
 import 'package:realmbank_mobile/presentation/card/widgets/card_front_widget.dart';
 import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';
 import 'package:realmbank_mobile/presentation/common/utils/full_name.dart';
-import 'package:realmbank_mobile/presentation/common/utils/message_toaster.dart';
-import 'package:realmbank_mobile/presentation/common/widgets/big_button.dart';
 import 'package:realmbank_mobile/presentation/common/widgets/tile_widget.dart';
 
 class CardPage extends StatelessWidget {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';
 import 'package:realmbank_mobile/presentation/home/widgets/transactions_widget.dart';
 
+// ignore: must_be_immutable
 class DraggableScrollSheet extends StatefulWidget {
   DraggableScrollSheet(
       {super.key,

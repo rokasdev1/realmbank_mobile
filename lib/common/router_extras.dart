@@ -1,4 +1,3 @@
-import 'package:flutter_zxing/flutter_zxing.dart';
 import 'package:realmbank_mobile/data/models/user.dart';
 
 class SendMoneyExtra {

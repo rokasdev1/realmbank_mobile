@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:realmbank_mobile/data/models/user.dart';
-import 'package:realmbank_mobile/presentation/auth/pages/intro_page.dart';
 import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';
 import 'package:realmbank_mobile/presentation/home/widgets/balance_card_widget.dart';
 import 'package:realmbank_mobile/presentation/home/widgets/draggable_scroll_sheet.dart';
