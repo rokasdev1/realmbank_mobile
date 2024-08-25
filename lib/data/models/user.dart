@@ -33,4 +33,22 @@ class RMUser {
         cardNumber: json['cardNumber'],
         uid: json['uid'],
       );
+
+  RMUser copyWith({
+    String? name,
+    String? lastName,
+    double? balance,
+    String? email,
+    String? cardNumber,
+    String? uid,
+  }) {
+    return RMUser(
+      name: name ?? this.name,
+      lastName: lastName ?? this.lastName,
+      balance: balance ?? this.balance,
+      email: email ?? this.email,
+      cardNumber: cardNumber ?? this.cardNumber,
+      uid: uid ?? this.uid,
+    );
+  }
 }

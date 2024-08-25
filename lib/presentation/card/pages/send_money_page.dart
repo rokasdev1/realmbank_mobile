@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -72,7 +70,6 @@ class _SendMoneyPageState extends State<SendMoneyPage> {
 
   @override
   Widget build(BuildContext context) {
-    log(canEdit.toString());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -100,7 +97,7 @@ class _SendMoneyPageState extends State<SendMoneyPage> {
               controller: cardNumController,
               prefixText: 'RM',
               label: 'Card number',
-              icon: Icons.person_2_outlined,
+              icon: Icons.credit_card,
             ),
             8.heightBox,
             TextFieldWidget(

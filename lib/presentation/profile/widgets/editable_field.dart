@@ -1,41 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';
+import 'package:realmbank_mobile/presentation/common/widgets/text_field_widget.dart';
 
 // ignore: must_be_immutable
-class TextFieldWidget extends StatefulWidget {
-  TextFieldWidget(
-      {super.key,
-      required this.controller,
-      required this.label,
-      required this.icon,
-      this.isObscure = false,
-      this.longerHintText = true,
-      this.keyboardType = TextInputType.text,
-      this.prefixText,
-      this.topText,
-      this.trailing,
-      this.canEdit = true});
-  final TextEditingController controller;
+class EditableField extends StatefulWidget {
+  EditableField({
+    super.key,
+    this.controller,
+    required this.label,
+    required this.icon,
+    this.topText,
+    this.prefixText,
+    this.text,
+    this.hintText,
+    this.initialText,
+    this.editable = true,
+  });
+  final TextEditingController? controller;
+  final String? initialText;
   final String label;
-  final IconData icon;
-  bool isObscure = false;
-  bool longerHintText = true;
-  Widget? trailing;
-  TextInputType keyboardType = TextInputType.text;
-  final String? prefixText;
   final String? topText;
-  bool? canEdit = true;
+  final IconData icon;
+  final String? prefixText;
+  final String? text;
+  final String? hintText;
+  bool editable = true;
 
   @override
-  State<TextFieldWidget> createState() => _TextFieldWidgetState();
+  State<EditableField> createState() => _EditableFieldState();
 }
 
-class _TextFieldWidgetState extends State<TextFieldWidget> {
-  late bool isHidden;
+class _EditableFieldState extends State<EditableField> {
+  bool isEditable = false;
 
   @override
   void initState() {
-    isHidden = widget.isObscure;
+    if (widget.controller != null) {
+      widget.controller!.text = widget.initialText ?? '';
+    }
+
     super.initState();
   }
 
@@ -52,6 +55,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
+            color: isEditable ? Colors.white : Colors.grey.shade200,
             border: Border.all(
               color: const Color.fromARGB(49, 158, 158, 158),
               width: 2,
@@ -91,41 +95,38 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                     ],
                   ),
                 Expanded(
-                  child: TextField(
-                    enabled: widget.canEdit ?? true,
-                    keyboardType: widget.keyboardType,
-                    controller: widget.controller,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                    obscureText: isHidden,
-                    decoration: InputDecoration(
-                      hintText: widget.longerHintText
-                          ? 'Your ${widget.label.toLowerCase()}'
-                          : widget.label,
-                      hintStyle: const TextStyle(color: Colors.grey),
-                      border: InputBorder.none,
-                    ),
-                  ),
+                  child: widget.text == null
+                      ? TextField(
+                          enabled: isEditable,
+                          controller: widget.controller,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                          decoration: InputDecoration(
+                            hintText: widget.hintText ??
+                                'Your ${widget.label.toLowerCase()}',
+                            hintStyle: const TextStyle(color: Colors.grey),
+                            border: InputBorder.none,
+                          ),
+                        )
+                      : Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 14),
+                          child: Text(
+                            widget.text!,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                                color: Colors.grey),
+                          ),
+                        ),
                 ),
-                if (widget.trailing != null && widget.isObscure == false)
-                  widget.trailing!,
-                if (widget.isObscure)
+                if (widget.editable)
                   GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        isHidden = !isHidden;
-                      });
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: Icon(
-                        isHidden
-                            ? Icons.visibility_off_outlined
-                            : Icons.visibility_outlined,
-                        color: Colors.grey,
-                        size: 28,
-                      ),
+                    onTap: () => setState(() => isEditable = !isEditable),
+                    child: Icon(
+                      isEditable ? Icons.edit_outlined : Icons.check_rounded,
+                      color: Colors.black,
                     ),
                   ),
+                8.widthBox,
               ],
             ),
           ),

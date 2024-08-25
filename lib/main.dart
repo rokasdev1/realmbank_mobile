@@ -1,8 +1,14 @@
+import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:realmbank_mobile/common/router.dart';
 import 'package:realmbank_mobile/common/routes.dart';
+import 'package:realmbank_mobile/data/models/contact.dart';
 import 'package:realmbank_mobile/data/repositories/authentication_repository.dart';
 import 'package:realmbank_mobile/data/repositories/request_repository.dart';
 import 'package:realmbank_mobile/data/repositories/transaction_repository.dart';
@@ -17,6 +23,12 @@ late final RMRouter router;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  var directory = await getApplicationDocumentsDirectory();
+  Hive.init(directory.path);
+  Hive.registerAdapter(ContactAdapter());
+
+  Hive.initFlutter();
+  await Hive.openBox<Contact>('contacts');
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,

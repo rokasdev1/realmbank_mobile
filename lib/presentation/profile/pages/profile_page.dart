@@ -73,14 +73,18 @@ class ProfilePage extends StatelessWidget {
                       ListTileWidget(
                         leading: Icons.account_circle_outlined,
                         text: 'Account',
-                        onTap: () {},
+                        onTap: () {
+                          AccountRoute().push();
+                        },
                         trailing: Icons.arrow_forward_ios_rounded,
                       ),
                       4.heightBox,
                       ListTileWidget(
                         leading: Icons.contacts_outlined,
                         text: 'Contacts',
-                        onTap: () {},
+                        onTap: () {
+                          ContactsRoute().push();
+                        },
                         trailing: Icons.arrow_forward_ios_rounded,
                       ),
                       4.heightBox,

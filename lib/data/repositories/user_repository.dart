@@ -25,4 +25,11 @@ class UserRepository {
   Stream<DocumentSnapshot<Map<String, dynamic>>> userStateChanges(String uid) {
     return FirebaseFirestore.instance.collection('users').doc(uid).snapshots();
   }
+
+  Future<void> updateUser(RMUser user) async {
+    final docUser =
+        FirebaseFirestore.instance.collection('users').doc(user.uid);
+    final json = user.toJson();
+    await docUser.update(json);
+  }
 }

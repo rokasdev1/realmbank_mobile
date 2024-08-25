@@ -1,13 +1,16 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:realmbank_mobile/data/enums/toast_type.dart';
 import 'package:realmbank_mobile/data/models/user.dart';
 import 'package:realmbank_mobile/data/repositories/user_repository.dart';
 import 'package:realmbank_mobile/presentation/common/providers/request_cubit.dart';
 import 'package:realmbank_mobile/presentation/common/providers/transaction_cubit.dart';
 import 'package:realmbank_mobile/presentation/common/utils/card_number_generator.dart';
+import 'package:realmbank_mobile/presentation/common/utils/message_toaster.dart';
 
 class UserCubit extends Cubit<UserState> {
   UserCubit(
@@ -79,6 +82,32 @@ class UserCubit extends Cubit<UserState> {
       log('UserCubit.createUserAccount: Error: $e');
     }
     log(state.toString());
+  }
+
+  // read users
+  Stream<List<RMUser>> getUsers() {
+    return FirebaseFirestore.instance.collection('users').snapshots().map(
+          (snapshot) => snapshot.docs
+              .map(
+                (doc) => RMUser.fromJson(doc.data()),
+              )
+              .toList(),
+        );
+  }
+
+  Future<void> updateUser(RMUser user) async {
+    try {
+      emit(LoadingUserState());
+      await userRepository.updateUser(user);
+      emit(SuccessUserState(user: user));
+      MessageToaster.showMessage(
+        message: 'Account successfully updated',
+        toastType: ToastType.success,
+      );
+    } catch (e) {
+      emit(FailedUserState(e.toString()));
+      log('UserCubit.updateUser: Error: $e');
+    }
   }
 }
 

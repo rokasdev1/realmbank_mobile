@@ -101,3 +101,30 @@ class RequestsRoute extends RMRoute {
           params: {},
         );
 }
+
+class ContactsRoute extends RMRoute {
+  ContactsRoute()
+      : super(
+          name: 'contacts',
+          path: '/contacts',
+          params: {},
+        );
+}
+
+class AddContactRoute extends RMRoute {
+  AddContactRoute()
+      : super(
+          name: 'addContact',
+          path: '/add-contact',
+          params: {},
+        );
+}
+
+class AccountRoute extends RMRoute {
+  AccountRoute()
+      : super(
+          name: 'account',
+          path: '/account',
+          params: {},
+        );
+}

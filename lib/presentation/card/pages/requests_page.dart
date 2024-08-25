@@ -25,10 +25,9 @@ class _RequestsPageState extends State<RequestsPage> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback(
-      (_) {
-        setState(() async {
-          sentRequests = await context.read<RequestCubit>().getSentRequests();
-        });
+      (_) async {
+        sentRequests = await context.read<RequestCubit>().getSentRequests();
+        setState(() {});
       },
     );
     super.initState();

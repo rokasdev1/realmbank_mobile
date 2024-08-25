@@ -77,7 +77,7 @@ class _RequestMoneyPageState extends State<RequestMoneyPage> {
                     longerHintText: false,
                     controller: cardNumController,
                     label: 'Card number',
-                    icon: Icons.attach_money,
+                    icon: Icons.credit_card,
                   ),
                   8.heightBox,
                 ],
