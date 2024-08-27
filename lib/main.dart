@@ -16,8 +16,10 @@ import 'package:realmbank_mobile/data/repositories/user_repository.dart';
 import 'package:realmbank_mobile/firebase_options.dart';
 import 'package:realmbank_mobile/presentation/common/providers/auth_cubit.dart';
 import 'package:realmbank_mobile/presentation/common/providers/request_cubit.dart';
+import 'package:realmbank_mobile/presentation/common/providers/theme_cubit.dart';
 import 'package:realmbank_mobile/presentation/common/providers/transaction_cubit.dart';
 import 'package:realmbank_mobile/presentation/common/providers/user_cubit.dart';
+import 'package:realmbank_mobile/presentation/common/utils/theme.dart';
 
 late final RMRouter router;
 
@@ -29,6 +31,7 @@ void main() async {
 
   Hive.initFlutter();
   await Hive.openBox<Contact>('contacts');
+  await Hive.openBox('settings');
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -60,6 +63,13 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(
+          create: (_) {
+            final themeCubit = ThemeCubit();
+            themeCubit.init();
+            return themeCubit;
+          },
+        ),
         BlocProvider(
           create: (_) {
             final requestCubit =
@@ -96,31 +106,33 @@ class _MyAppState extends State<MyApp> {
           },
         ),
       ],
-      child: MaterialApp.router(
-        color: Colors.white,
-        theme: ThemeData(
-          fontFamily: 'Inter',
-          scaffoldBackgroundColor: Colors.white,
-        ),
-        routerConfig: router.router,
-        builder: (context, child) {
-          return Overlay(
-            initialEntries: [
-              OverlayEntry(
-                builder: (context) {
-                  return BlocListener<AuthCubit, AuthState>(
-                    listener: (context, state) {
-                      if (state is InitialAuthState) {
-                        router.go(StartPageRoute());
-                      } else if (state is SuccessAuthState) {
-                        router.go(MainPageRoute());
-                      }
+      child: BlocBuilder<ThemeCubit, ThemeState>(
+        builder: (context, state) {
+          final isDarkTheme = state is DarkThemeState;
+          return MaterialApp.router(
+            builder: (context, child) {
+              return Overlay(
+                initialEntries: [
+                  OverlayEntry(
+                    builder: (context) {
+                      return BlocListener<AuthCubit, AuthState>(
+                        listener: (context, state) {
+                          if (state is InitialAuthState) {
+                            router.go(StartPageRoute());
+                          } else if (state is SuccessAuthState) {
+                            router.go(MainPageRoute());
+                          }
+                        },
+                        child: child,
+                      );
                     },
-                    child: child,
-                  );
-                },
-              )
-            ],
+                  )
+                ],
+              );
+            },
+            color: Colors.white,
+            theme: RMTheme.themeData(isDarkTheme),
+            routerConfig: router.router,
           );
         },
       ),

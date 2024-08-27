@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';
 
 // ignore: must_be_immutable
 class BigButton extends StatefulWidget {
@@ -29,14 +30,13 @@ class _BigButtonState extends State<BigButton> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
           border: widget.inverted
-              ? Border.all(
-                  color: const Color.fromRGBO(94, 98, 239, 1), width: 2)
+              ? Border.all(color: context.colorScheme.primary, width: 2)
               : null,
           color: widget.disabled
               ? Colors.grey
               : widget.inverted
                   ? Colors.white
-                  : const Color.fromRGBO(94, 98, 239, 1),
+                  : context.colorScheme.primary,
         ),
         child: Center(
           child: Text(
@@ -44,9 +44,8 @@ class _BigButtonState extends State<BigButton> {
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
-              color: widget.inverted
-                  ? const Color.fromRGBO(94, 98, 239, 1)
-                  : Colors.white,
+              color:
+                  widget.inverted ? context.colorScheme.primary : Colors.white,
             ),
           ),
         ),

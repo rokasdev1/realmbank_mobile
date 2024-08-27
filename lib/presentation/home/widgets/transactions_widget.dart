@@ -18,7 +18,6 @@ class TransactionsWidget extends StatefulWidget {
 
 class _TransactionsWidgetState extends State<TransactionsWidget> {
   final userUID = FirebaseAuth.instance.currentUser!.uid;
-  final accentColor = const Color.fromRGBO(94, 98, 239, 1);
 
   String _sentOrReceivedFullName(RMTransaction transaction) {
     if (transaction.senderUID == userUID) {

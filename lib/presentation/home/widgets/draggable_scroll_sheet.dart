@@ -29,9 +29,9 @@ class _DraggableScrollSheetState extends State<DraggableScrollSheet> {
       builder: (context, scrollController) {
         return Container(
           padding: const EdgeInsets.only(top: 25, left: 16, right: 16),
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
+          decoration: BoxDecoration(
+            color: context.colorScheme.surface,
+            borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(30),
               topRight: Radius.circular(30),
             ),
@@ -45,7 +45,7 @@ class _DraggableScrollSheetState extends State<DraggableScrollSheet> {
                   width: 48,
                   padding: const EdgeInsets.all(4),
                   decoration: ShapeDecoration(
-                    color: Colors.grey.shade300,
+                    color: context.colorScheme.surfaceBright,
                     shape: const StadiumBorder(),
                   ),
                 ),

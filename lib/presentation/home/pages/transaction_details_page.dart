@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:realmbank_mobile/data/models/transaction.dart';
 import 'package:realmbank_mobile/data/models/user.dart';
-import 'package:realmbank_mobile/presentation/common/utils/date_converter.dart';
 import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';
-import 'package:realmbank_mobile/presentation/common/utils/find_user_utils.dart';
-import 'package:realmbank_mobile/presentation/common/utils/number_format.dart';
+import 'package:realmbank_mobile/presentation/common/utils/find_tools.dart';
+import 'package:realmbank_mobile/presentation/common/utils/formatters.dart';
 
 class TransactionDetailsPage extends StatelessWidget {
   const TransactionDetailsPage({super.key, required this.transaction});
@@ -15,16 +14,13 @@ class TransactionDetailsPage extends StatelessWidget {
     final List parts = transaction.amount.toStringAsFixed(2).split('.');
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
         title: const Text(
           'Transaction details',
-          style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        centerTitle: true,
       ),
       body: FutureBuilder<List<RMUser>>(
-          future:
-              findUsersWithUID(transaction.senderUID, transaction.receiverUID),
+          future: FindTools.findUsersWithUID(
+              transaction.senderUID, transaction.receiverUID),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return const Center(child: CircularProgressIndicator());
@@ -54,7 +50,7 @@ class TransactionDetailsPage extends StatelessWidget {
                                   height: 0),
                             ),
                             Text(
-                              formatNumberWithCommas(parts[0]),
+                              Formatters.numberWithCommas(parts[0]),
                               style: const TextStyle(
                                   fontSize: 70,
                                   fontWeight: FontWeight.w900,
@@ -70,7 +66,7 @@ class TransactionDetailsPage extends StatelessWidget {
                           ],
                         ),
                         Text(
-                          dateConvert(transaction.date),
+                          Formatters.dateFormat(transaction.date),
                         ),
                       ],
                     ),
@@ -93,7 +89,9 @@ class TransactionDetailsPage extends StatelessWidget {
                       Text(
                         sender.cardNumber,
                       ),
-                      const Divider(),
+                      Divider(
+                        color: context.colorScheme.surfaceContainerHigh,
+                      ),
                     ],
                   ),
                   Column(
@@ -113,7 +111,9 @@ class TransactionDetailsPage extends StatelessWidget {
                       Text(
                         receiver.cardNumber,
                       ),
-                      const Divider(),
+                      Divider(
+                        color: context.colorScheme.surfaceContainerHigh,
+                      ),
                     ],
                   ),
                   Column(
@@ -130,7 +130,9 @@ class TransactionDetailsPage extends StatelessWidget {
                         style: const TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
-                      const Divider(),
+                      Divider(
+                        color: context.colorScheme.surfaceContainerHigh,
+                      ),
                     ],
                   )
                 ],

@@ -128,3 +128,12 @@ class AccountRoute extends RMRoute {
           params: {},
         );
 }
+
+class SettingsRoute extends RMRoute {
+  SettingsRoute()
+      : super(
+          name: 'settings',
+          path: '/settings',
+          params: {},
+        );
+}

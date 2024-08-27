@@ -59,7 +59,7 @@ class MessageToaster {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: context.colorScheme.surfaceContainer,
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
@@ -79,7 +79,7 @@ class MessageToaster {
                       ),
                       child: Icon(
                         toastIcon,
-                        color: Colors.white,
+                        color: context.colorScheme.surface,
                       ),
                     ),
                     16.widthBox,
@@ -91,7 +91,6 @@ class MessageToaster {
                           Text(
                             message,
                             style: const TextStyle(
-                              color: Colors.black,
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
                             ),
@@ -100,7 +99,6 @@ class MessageToaster {
                             Text(
                               secondaryMessage,
                               style: const TextStyle(
-                                color: Colors.black,
                                 fontSize: 12,
                               ),
                             ),

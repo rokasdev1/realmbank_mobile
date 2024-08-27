@@ -33,7 +33,6 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        backgroundColor: Colors.white,
         toolbarHeight: 80,
       ),
       body: BlocBuilder<AuthCubit, AuthState>(
@@ -46,7 +45,10 @@ class _LoginPageState extends State<LoginPage> {
                 Center(
                   child: SizedBox(
                     height: 80,
-                    child: SvgPicture.asset('assets/realm.svg'),
+                    child: SvgPicture.asset(
+                      'assets/realm.svg',
+                      color: context.colorScheme.inverseSurface,
+                    ),
                   ),
                 ),
                 36.heightBox,

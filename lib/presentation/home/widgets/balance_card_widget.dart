@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:realmbank_mobile/data/models/user.dart';
 import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';
-import 'package:realmbank_mobile/presentation/common/utils/full_name.dart';
+import 'package:realmbank_mobile/presentation/common/utils/formatters.dart';
 import 'package:realmbank_mobile/presentation/common/widgets/money_widget.dart';
 
 class BalanceCardWidget extends StatelessWidget {
@@ -50,7 +50,7 @@ class BalanceCardWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            fullName(user.name, user.lastName),
+                            Formatters.fullName(user.name, user.lastName),
                             style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 18,

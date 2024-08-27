@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:realmbank_mobile/presentation/auth/pages/intro_page.dart';
 import 'package:realmbank_mobile/presentation/card/pages/card_page.dart';
 import 'package:realmbank_mobile/presentation/common/providers/user_cubit.dart';
+import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';
 import 'package:realmbank_mobile/presentation/home/pages/home_page.dart';
 import 'package:realmbank_mobile/presentation/profile/pages/profile_page.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
@@ -48,26 +50,31 @@ class _MainPageState extends State<MainPage> {
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(20), topRight: Radius.circular(20)),
-          color: Colors.white,
+          color: context.colorScheme.surface,
           boxShadow: [
             BoxShadow(
-                color: Colors.grey.shade200, blurRadius: 10, spreadRadius: 5)
+                color: context.colorScheme.shadow,
+                blurRadius: 10,
+                spreadRadius: 5)
           ],
         ),
         child: SalomonBottomBar(
+          backgroundColor: context.colorScheme.surface,
           itemPadding: const EdgeInsets.symmetric(horizontal: 25, vertical: 12),
           items: [
             SalomonBottomBarItem(
-              selectedColor: const Color.fromRGBO(94, 98, 239, 1),
+              selectedColor: context.colorScheme.primary,
               icon: const Icon(Icons.home_outlined),
               activeIcon: const Icon(Icons.home),
               title: const Text('Home'),
             ),
             SalomonBottomBarItem(
+              selectedColor: context.colorScheme.primary,
               icon: const Icon(Icons.credit_card),
               title: const Text('Card'),
             ),
             SalomonBottomBarItem(
+              selectedColor: context.colorScheme.primary,
               icon: const Icon(Icons.person_outline),
               activeIcon: const Icon(Icons.person),
               title: const Text('Profile'),

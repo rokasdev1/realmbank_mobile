@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:realmbank_mobile/presentation/common/utils/date_converter.dart';
 import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';
+import 'package:realmbank_mobile/presentation/common/utils/formatters.dart';
 
 class DateListTile extends StatelessWidget {
   const DateListTile(
@@ -17,8 +17,6 @@ class DateListTile extends StatelessWidget {
   final Widget trailing;
   final Timestamp date;
 
-  final accentColor = const Color.fromRGBO(94, 98, 239, 1);
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -31,11 +29,11 @@ class DateListTile extends StatelessWidget {
             Row(
               children: [
                 CircleAvatar(
-                  backgroundColor: Colors.grey.shade100,
+                  backgroundColor: context.colorScheme.surfaceContainer,
                   radius: 25,
                   child: Icon(
                     Icons.send_to_mobile,
-                    color: accentColor,
+                    color: context.colorScheme.primary,
                   ),
                 ),
                 16.widthBox,
@@ -48,7 +46,7 @@ class DateListTile extends StatelessWidget {
                           fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      dateConvert(date),
+                      Formatters.dateFormat(date),
                       style: const TextStyle(color: Colors.grey),
                     ),
                   ],

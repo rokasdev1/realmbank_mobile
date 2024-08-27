@@ -6,7 +6,7 @@ import 'package:realmbank_mobile/data/models/user.dart';
 import 'package:realmbank_mobile/presentation/card/widgets/card_back_widget.dart';
 import 'package:realmbank_mobile/presentation/card/widgets/card_front_widget.dart';
 import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';
-import 'package:realmbank_mobile/presentation/common/utils/full_name.dart';
+import 'package:realmbank_mobile/presentation/common/utils/formatters.dart';
 import 'package:realmbank_mobile/presentation/common/widgets/tile_widget.dart';
 
 class CardPage extends StatelessWidget {
@@ -34,7 +34,7 @@ class CardPage extends StatelessWidget {
                   flipDirection: FlipDirection.horizontal,
                   flipDuration: const Duration(milliseconds: 500),
                   front: CardFrontWidget(
-                    fullName: fullName(user.name, user.lastName),
+                    fullName: Formatters.fullName(user.name, user.lastName),
                   ),
                   back: CardBackWidget(
                     user: user,
@@ -45,7 +45,7 @@ class CardPage extends StatelessWidget {
               36.heightBox,
               Container(
                 decoration: BoxDecoration(
-                  color: Colors.grey.shade200,
+                  color: context.colorScheme.surfaceContainer,
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Wrap(

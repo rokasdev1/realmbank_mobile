@@ -27,10 +27,7 @@ class StartPage extends StatelessWidget {
                 text: const TextSpan(
                   text: 'Find the \n',
                   style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 50,
-                      fontWeight: FontWeight.bold,
-                      height: 1.3),
+                      fontSize: 50, fontWeight: FontWeight.bold, height: 1.3),
                   children: <TextSpan>[
                     TextSpan(
                       text: 'right ',

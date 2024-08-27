@@ -28,17 +28,14 @@ class _ContactsPageState extends State<ContactsPage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.white,
-        centerTitle: true,
         title: const Text(
           'Contacts',
-          style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 16, right: 16),
         child: FloatingActionButton(
-          backgroundColor: const Color.fromRGBO(94, 98, 239, 1),
+          backgroundColor: context.colorScheme.primary,
           shape: const StadiumBorder(),
           onPressed: () {
             AddContactRoute().push();

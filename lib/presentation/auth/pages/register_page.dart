@@ -33,7 +33,6 @@ class _RegisterPageState extends State<RegisterPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        backgroundColor: Colors.white,
         toolbarHeight: 80,
       ),
       body: BlocBuilder<AuthCubit, AuthState>(builder: (context, state) {
@@ -45,7 +44,10 @@ class _RegisterPageState extends State<RegisterPage> {
               Center(
                 child: SizedBox(
                   height: 80,
-                  child: SvgPicture.asset('assets/realm.svg'),
+                  child: SvgPicture.asset(
+                    'assets/realm.svg',
+                    color: context.colorScheme.inverseSurface,
+                  ),
                 ),
               ),
               36.heightBox,

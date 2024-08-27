@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:realmbank_mobile/data/models/transaction.dart';
 import 'package:realmbank_mobile/data/models/user.dart';
-import 'package:realmbank_mobile/presentation/common/utils/full_name.dart';
+import 'package:realmbank_mobile/presentation/common/utils/formatters.dart';
 import 'package:rxdart/rxdart.dart';
 
 class TransactionRepository {
@@ -53,9 +53,9 @@ class TransactionRepository {
           FirebaseFirestore.instance.collection('transactions').doc();
       final transaction = RMTransaction(
         senderUID: sender.uid,
-        senderFullName: fullName(sender.name, sender.lastName),
+        senderFullName: Formatters.fullName(sender.name, sender.lastName),
         receiverUID: receiver.uid,
-        receiverFullName: fullName(receiver.name, receiver.lastName),
+        receiverFullName: Formatters.fullName(receiver.name, receiver.lastName),
         description: description,
         amount: amount,
         date: Timestamp.now(),

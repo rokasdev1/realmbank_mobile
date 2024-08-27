@@ -28,7 +28,6 @@ class _IntroPageState extends State<IntroPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
         toolbarHeight: 80,
       ),
       body: BlocBuilder<UserCubit, UserState>(builder: (context, state) {

@@ -29,7 +29,7 @@ class QrDialog extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(
-                    color: const Color.fromRGBO(94, 98, 239, 1),
+                    color: context.colorScheme.primary,
                     width: 10,
                   ),
                 ),

@@ -15,6 +15,7 @@ import 'package:realmbank_mobile/presentation/auth/pages/intro_page.dart';
 import 'package:realmbank_mobile/presentation/profile/pages/account_page.dart';
 import 'package:realmbank_mobile/presentation/profile/pages/add_contacts_page.dart';
 import 'package:realmbank_mobile/presentation/profile/pages/contacts_page.dart';
+import 'package:realmbank_mobile/presentation/profile/pages/settings_page.dart';
 
 final rootNavigatorKey = GlobalKey<NavigatorState>();
 final signInNavigatorKey = GlobalKey<NavigatorState>();
@@ -121,6 +122,13 @@ class RMRouter {
         path: '/account',
         builder: (context, state) {
           return const AccountPage();
+        },
+      ),
+      GoRoute(
+        name: 'settings',
+        path: '/settings',
+        builder: (context, state) {
+          return const SettingsPage();
         },
       ),
     ],

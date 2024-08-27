@@ -54,3 +54,7 @@ extension RMRouteX on RMRoute {
     );
   }
 }
+
+extension ThemeExtensions on BuildContext {
+  ColorScheme get colorScheme => Theme.of(this).colorScheme;
+}

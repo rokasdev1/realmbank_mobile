@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:realmbank_mobile/presentation/auth/pages/intro_page.dart';
+import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';
 
 class ListTileWidget extends StatelessWidget {
   final IconData leading;
@@ -23,7 +25,7 @@ class ListTileWidget extends StatelessWidget {
         leading: Icon(
           leading,
           size: 25,
-          color: foregroundColor ?? const Color.fromRGBO(94, 98, 239, 1),
+          color: foregroundColor ?? context.colorScheme.primary,
         ),
         title: Text(
           text,
@@ -36,7 +38,7 @@ class ListTileWidget extends StatelessWidget {
             ? Icon(
                 trailing,
                 size: 15,
-                color: foregroundColor ?? const Color.fromRGBO(94, 98, 239, 1),
+                color: foregroundColor ?? context.colorScheme.primary,
               )
             : null);
   }

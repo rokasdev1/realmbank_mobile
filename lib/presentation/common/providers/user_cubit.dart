@@ -9,7 +9,7 @@ import 'package:realmbank_mobile/data/models/user.dart';
 import 'package:realmbank_mobile/data/repositories/user_repository.dart';
 import 'package:realmbank_mobile/presentation/common/providers/request_cubit.dart';
 import 'package:realmbank_mobile/presentation/common/providers/transaction_cubit.dart';
-import 'package:realmbank_mobile/presentation/common/utils/card_number_generator.dart';
+import 'package:realmbank_mobile/presentation/common/utils/generate.dart';
 import 'package:realmbank_mobile/presentation/common/utils/message_toaster.dart';
 
 class UserCubit extends Cubit<UserState> {
@@ -72,7 +72,7 @@ class UserCubit extends Cubit<UserState> {
         lastName: lastName,
         balance: 0,
         email: currentUser.email ?? '',
-        cardNumber: generateCardNumber(currentUser.email ?? ''),
+        cardNumber: Generate.cardNumber(currentUser.email ?? ''),
         uid: currentUser.uid,
       );
       await userRepository.createUser(newUser);

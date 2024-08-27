@@ -41,11 +41,9 @@ class _HomePageState extends State<HomePage> {
         body: Container(
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
-            border:
-                Border(top: BorderSide(color: Colors.grey.shade200, width: 2)),
             gradient: LinearGradient(colors: [
-              Colors.grey.shade100,
-              Colors.grey.shade600,
+              context.colorScheme.surface,
+              context.colorScheme.surfaceDim,
             ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
           ),
           child: Stack(
@@ -65,12 +63,14 @@ class _HomePageState extends State<HomePage> {
                       style: const TextStyle(fontSize: 16, color: Colors.grey),
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.only(left: 16),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 16),
                     child: Text(
                       'Account',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 40),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 40,
+                          color: context.colorScheme.onSurface),
                     ),
                   ),
                   16.heightBox,

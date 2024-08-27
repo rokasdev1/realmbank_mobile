@@ -6,9 +6,9 @@ import 'package:realmbank_mobile/data/models/user.dart';
 import 'package:realmbank_mobile/presentation/card/widgets/qr_dialog.dart';
 import 'package:realmbank_mobile/presentation/common/providers/request_cubit.dart';
 import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';
-import 'package:realmbank_mobile/presentation/common/utils/find_user_utils.dart';
+import 'package:realmbank_mobile/presentation/common/utils/find_tools.dart';
+import 'package:realmbank_mobile/presentation/common/utils/generate.dart';
 import 'package:realmbank_mobile/presentation/common/utils/message_toaster.dart';
-import 'package:realmbank_mobile/presentation/common/utils/qr_code_gen.dart';
 import 'package:realmbank_mobile/presentation/common/widgets/big_button.dart';
 import 'package:realmbank_mobile/presentation/common/widgets/text_field_widget.dart';
 
@@ -48,12 +48,9 @@ class _RequestMoneyPageState extends State<RequestMoneyPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
         title: const Text(
           'Request',
-          style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -119,7 +116,7 @@ class _RequestMoneyPageState extends State<RequestMoneyPage> {
                             context: context,
                             builder: (context) {
                               return QrDialog(
-                                data: qrCodeGen(
+                                data: Generate.qrCode(
                                   requestorCardNum: widget.user.cardNumber,
                                   amount: double.parse(amountController.text),
                                   description: descriptionController.text,
@@ -132,7 +129,7 @@ class _RequestMoneyPageState extends State<RequestMoneyPage> {
                     : BigButton(
                         label: 'Send Request',
                         onTap: () async {
-                          final user = await findUserWithCardNum(
+                          final user = await FindTools.findUserWithCardNum(
                               'RM${cardNumController.text}');
                           if (user == null || user.uid == widget.user.uid) {
                             MessageToaster.showMessage(

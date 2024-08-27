@@ -3,9 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:realmbank_mobile/common/router_extras.dart';
 import 'package:realmbank_mobile/common/routes.dart';
+import 'package:realmbank_mobile/data/enums/toast_type.dart';
 import 'package:realmbank_mobile/data/models/user.dart';
 import 'package:realmbank_mobile/presentation/common/providers/auth_cubit.dart';
 import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';
+import 'package:realmbank_mobile/presentation/common/utils/message_toaster.dart';
 import 'package:realmbank_mobile/presentation/common/widgets/list_tile_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -28,13 +30,13 @@ class ProfilePage extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(
-                      color: const Color.fromRGBO(94, 98, 239, 1),
+                      color: context.colorScheme.primary,
                       width: 10,
                     ),
                   ),
                   child: QrImageView(
                     backgroundColor: Colors.transparent,
-                    foregroundColor: Colors.black,
+                    foregroundColor: context.colorScheme.inverseSurface,
                     data: user.cardNumber,
                     size: 125,
                   ),
@@ -50,14 +52,15 @@ class ProfilePage extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                   decoration: ShapeDecoration(
-                    color: Colors.grey.shade200,
+                    color: context.colorScheme.surfaceContainer,
                     shape: const StadiumBorder(),
                   ),
                   child: Text(
                     user.email,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
+                      color: context.colorScheme.onSurfaceVariant,
                     ),
                   ),
                 ),
@@ -65,7 +68,7 @@ class ProfilePage extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: Colors.grey.shade200,
+                    color: Theme.of(context).colorScheme.surfaceContainer,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Column(
@@ -91,7 +94,9 @@ class ProfilePage extends StatelessWidget {
                       ListTileWidget(
                         leading: Icons.settings_outlined,
                         text: 'Settings',
-                        onTap: () {},
+                        onTap: () {
+                          SettingsRoute().push();
+                        },
                         trailing: Icons.arrow_forward_ios_rounded,
                       ),
                     ],
@@ -101,7 +106,7 @@ class ProfilePage extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: Colors.grey.shade200,
+                    color: Theme.of(context).colorScheme.surfaceContainer,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Column(
@@ -137,7 +142,13 @@ class ProfilePage extends StatelessWidget {
                       ListTileWidget(
                         leading: Icons.credit_card,
                         text: 'Card info',
-                        onTap: () {},
+                        onTap: () {
+                          MessageToaster.showMessage(
+                            message: 'TEST',
+                            toastType: ToastType.success,
+                            secondaryMessage: 'this is a test',
+                          );
+                        },
                         trailing: Icons.arrow_forward_ios_rounded,
                       ),
                       4.heightBox,
@@ -159,7 +170,7 @@ class ProfilePage extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: Colors.grey.shade200,
+                    color: Theme.of(context).colorScheme.surfaceContainer,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Column(

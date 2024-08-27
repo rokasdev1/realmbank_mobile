@@ -25,7 +25,7 @@ class TileWidget extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: const Color.fromRGBO(94, 98, 239, 1),
+                color: context.colorScheme.primary,
                 borderRadius: BorderRadius.circular(15),
               ),
               child: Icon(

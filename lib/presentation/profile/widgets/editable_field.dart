@@ -55,7 +55,9 @@ class _EditableFieldState extends State<EditableField> {
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
-            color: isEditable ? Colors.white : Colors.grey.shade200,
+            color: isEditable
+                ? context.colorScheme.surface
+                : context.colorScheme.surfaceContainer,
             border: Border.all(
               color: const Color.fromARGB(49, 158, 158, 158),
               width: 2,
@@ -85,7 +87,7 @@ class _EditableFieldState extends State<EditableField> {
                       ),
                       4.widthBox,
                       VerticalDivider(
-                        color: Colors.grey.shade300,
+                        color: context.colorScheme.surfaceContainerHigh,
                         thickness: 1,
                         width: 1,
                         indent: 8,
@@ -122,8 +124,8 @@ class _EditableFieldState extends State<EditableField> {
                   GestureDetector(
                     onTap: () => setState(() => isEditable = !isEditable),
                     child: Icon(
-                      isEditable ? Icons.edit_outlined : Icons.check_rounded,
-                      color: Colors.black,
+                      isEditable ? Icons.check_rounded : Icons.edit_outlined,
+                      color: Colors.grey.shade600,
                     ),
                   ),
                 8.widthBox,

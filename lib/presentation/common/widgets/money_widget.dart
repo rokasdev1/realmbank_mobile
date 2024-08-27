@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';
-import 'package:realmbank_mobile/presentation/common/utils/number_format.dart';
+import 'package:realmbank_mobile/presentation/common/utils/formatters.dart';
 
 class MoneyWidget extends StatelessWidget {
   const MoneyWidget({super.key, required this.money});
@@ -21,7 +21,7 @@ class MoneyWidget extends StatelessWidget {
         ),
         16.widthBox,
         Text(
-          formatNumberWithCommas(parts[0]),
+          Formatters.numberWithCommas(parts[0]),
           style: const TextStyle(
               fontSize: 48, fontWeight: FontWeight.w900, color: Colors.white),
         ),

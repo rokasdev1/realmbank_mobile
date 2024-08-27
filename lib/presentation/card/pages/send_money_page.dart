@@ -6,7 +6,7 @@ import 'package:realmbank_mobile/data/models/user.dart';
 import 'package:realmbank_mobile/presentation/common/providers/request_cubit.dart';
 import 'package:realmbank_mobile/presentation/common/providers/transaction_cubit.dart';
 import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';
-import 'package:realmbank_mobile/presentation/common/utils/find_user_utils.dart';
+import 'package:realmbank_mobile/presentation/common/utils/find_tools.dart';
 import 'package:realmbank_mobile/presentation/common/utils/message_toaster.dart';
 import 'package:realmbank_mobile/presentation/common/widgets/big_button.dart';
 import 'package:realmbank_mobile/presentation/common/widgets/text_field_widget.dart';
@@ -72,12 +72,9 @@ class _SendMoneyPageState extends State<SendMoneyPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
         title: const Text(
           'Send',
-          style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -122,8 +119,8 @@ class _SendMoneyPageState extends State<SendMoneyPage> {
               onTap: () async {
                 var receiver = widget.receiver;
                 if (widget.receiver == null) {
-                  receiver =
-                      await findUserWithCardNum('RM${cardNumController.text}');
+                  receiver = await FindTools.findUserWithCardNum(
+                      'RM${cardNumController.text}');
                 }
                 if (receiver == null || receiver.uid == widget.sender.uid) {
                   MessageToaster.showMessage(

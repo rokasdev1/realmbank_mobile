@@ -26,7 +26,7 @@ class _GoogleButtonState extends State<GoogleButton> {
           border: Border.all(
               color: const Color.fromARGB(71, 199, 199, 199), width: 2),
           borderRadius: BorderRadius.circular(15),
-          color: Colors.white,
+          color: context.colorScheme.surface,
         ),
         child: Center(
             child: Row(

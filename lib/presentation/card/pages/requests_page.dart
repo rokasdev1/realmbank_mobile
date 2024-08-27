@@ -5,11 +5,12 @@ import 'package:realmbank_mobile/common/router_extras.dart';
 import 'package:realmbank_mobile/common/routes.dart';
 import 'package:realmbank_mobile/data/models/request.dart';
 import 'package:realmbank_mobile/data/models/user.dart';
+import 'package:realmbank_mobile/presentation/card/widgets/request_bar.dart';
 import 'package:realmbank_mobile/presentation/common/providers/request_cubit.dart';
 import 'package:realmbank_mobile/presentation/common/providers/user_cubit.dart';
 import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';
-import 'package:realmbank_mobile/presentation/common/utils/find_user_utils.dart';
-import 'package:realmbank_mobile/presentation/common/utils/full_name.dart';
+import 'package:realmbank_mobile/presentation/common/utils/find_tools.dart';
+import 'package:realmbank_mobile/presentation/common/utils/formatters.dart';
 import 'package:realmbank_mobile/presentation/common/widgets/date_list_tile.dart';
 
 class RequestsPage extends StatefulWidget {
@@ -40,36 +41,12 @@ class _RequestsPageState extends State<RequestsPage> {
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: Colors.white,
           title: const Text(
             'Requests',
-            style: TextStyle(fontWeight: FontWeight.bold),
           ),
-          centerTitle: true,
-          bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(50),
-            child: Container(
-              margin: const EdgeInsets.only(left: 16, right: 16, top: 16),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(
-                  width: 3,
-                  color: Colors.grey.shade300,
-                ),
-              ),
-              child: const TabBar(
-                dividerHeight: 0,
-                labelStyle: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
-                tabs: [
-                  Tab(text: 'Received'),
-                  Tab(text: 'Sent'),
-                ],
-              ),
-            ),
+          bottom: const PreferredSize(
+            preferredSize: Size.fromHeight(50),
+            child: RequestBar(),
           ),
         ),
         body: RefreshIndicator(
@@ -112,7 +89,8 @@ class _RequestsPageState extends State<RequestsPage> {
                         final user = userState.user;
 
                         return FutureBuilder<RMUser?>(
-                          future: findUserWithUID(request.requestorUID),
+                          future:
+                              FindTools.findUserWithUID(request.requestorUID),
                           builder: (context, snapshot) {
                             if (snapshot.connectionState ==
                                 ConnectionState.waiting) {
@@ -144,7 +122,7 @@ class _RequestsPageState extends State<RequestsPage> {
                                 },
                                 icon: Icons.request_page_outlined,
                                 title:
-                                    'From: ${fullName(requestorUser.name, requestorUser.lastName)}',
+                                    'From: ${Formatters.fullName(requestorUser.name, requestorUser.lastName)}',
                                 trailing: Text(request.amount.toString(),
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold,
@@ -173,7 +151,8 @@ class _RequestsPageState extends State<RequestsPage> {
                           final request = sentRequests[index];
 
                           return FutureBuilder<RMUser?>(
-                              future: findUserWithUID(request.requesteeUID),
+                              future: FindTools.findUserWithUID(
+                                  request.requesteeUID),
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState ==
                                     ConnectionState.waiting) {
@@ -195,7 +174,7 @@ class _RequestsPageState extends State<RequestsPage> {
                                   onTap: () {},
                                   icon: Icons.request_page_outlined,
                                   title:
-                                      'To: ${fullName(requestee.name, requestee.lastName)}',
+                                      'To: ${Formatters.fullName(requestee.name, requestee.lastName)}',
                                   trailing: Text(request.amount.toString(),
                                       style: const TextStyle(
                                           fontWeight: FontWeight.bold,
