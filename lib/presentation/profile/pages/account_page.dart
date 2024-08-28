@@ -21,6 +21,13 @@ class _AccountPageState extends State<AccountPage> {
   final lastNameController = TextEditingController();
 
   @override
+  void dispose() {
+    nameController.dispose();
+    lastNameController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

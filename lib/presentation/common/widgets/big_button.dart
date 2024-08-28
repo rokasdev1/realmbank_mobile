@@ -33,9 +33,9 @@ class _BigButtonState extends State<BigButton> {
               ? Border.all(color: context.colorScheme.primary, width: 2)
               : null,
           color: widget.disabled
-              ? Colors.grey
+              ? context.colorScheme.surfaceContainer
               : widget.inverted
-                  ? Colors.white
+                  ? context.colorScheme.surface
                   : context.colorScheme.primary,
         ),
         child: Center(
@@ -44,8 +44,9 @@ class _BigButtonState extends State<BigButton> {
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
-              color:
-                  widget.inverted ? context.colorScheme.primary : Colors.white,
+              color: widget.inverted
+                  ? context.colorScheme.primary
+                  : context.colorScheme.surface,
             ),
           ),
         ),

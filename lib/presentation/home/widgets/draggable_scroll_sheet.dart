@@ -19,6 +19,12 @@ class _DraggableScrollSheetState extends State<DraggableScrollSheet> {
   bool isClosed = true;
 
   @override
+  void dispose() {
+    widget.sheetController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
       controller: widget.sheetController,
@@ -38,7 +44,6 @@ class _DraggableScrollSheetState extends State<DraggableScrollSheet> {
           ),
           child: ListView(
             controller: scrollController,
-            physics: const NeverScrollableScrollPhysics(),
             children: [
               Center(
                 child: Container(
@@ -64,30 +69,9 @@ class _DraggableScrollSheetState extends State<DraggableScrollSheet> {
                             style: TextStyle(
                                 fontSize: 30, fontWeight: FontWeight.bold),
                           ),
-                          GestureDetector(
-                            onTap: () {
-                              isClosed
-                                  ? widget.sheetController.animateTo(1,
-                                      duration:
-                                          const Duration(milliseconds: 500),
-                                      curve: Curves.decelerate)
-                                  : widget.sheetController.animateTo(
-                                      widget.initialChildSize,
-                                      duration:
-                                          const Duration(milliseconds: 500),
-                                      curve: Curves.decelerate);
-                              setState(() {
-                                isClosed = !isClosed;
-                              });
-                            },
-                            child: Text(
-                              isClosed ? 'See more' : 'See less',
-                              style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Color.fromRGBO(94, 98, 239, 1),
-                              ),
-                            ),
+                          SheetExpandText(
+                            controller: widget.sheetController,
+                            initialChildSize: widget.initialChildSize,
                           ),
                         ],
                       ),
@@ -101,6 +85,73 @@ class _DraggableScrollSheetState extends State<DraggableScrollSheet> {
           ),
         );
       },
+    );
+  }
+}
+
+class SheetExpandText extends StatefulWidget {
+  const SheetExpandText(
+      {super.key, required this.controller, required this.initialChildSize});
+  final DraggableScrollableController controller;
+  final double initialChildSize;
+
+  @override
+  State<SheetExpandText> createState() => _SheetExpandTextState();
+}
+
+class _SheetExpandTextState extends State<SheetExpandText> {
+  bool isClosed = true;
+  String text = 'See more';
+
+  @override
+  void initState() {
+    widget.controller.addListener(
+      () {
+        if (widget.controller.size == 1) {
+          setState(() {
+            isClosed == false;
+            text = 'See less';
+          });
+        } else {
+          setState(() {
+            isClosed == true;
+            text = 'See more';
+          });
+        }
+      },
+    );
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    widget.controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        isClosed
+            ? widget.controller.animateTo(1,
+                duration: const Duration(milliseconds: 500),
+                curve: Curves.decelerate)
+            : widget.controller.animateTo(widget.initialChildSize,
+                duration: const Duration(milliseconds: 500),
+                curve: Curves.decelerate);
+        setState(() {
+          isClosed = !isClosed;
+        });
+      },
+      child: Text(
+        isClosed ? text : text,
+        style: const TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+          color: Color.fromRGBO(94, 98, 239, 1),
+        ),
+      ),
     );
   }
 }

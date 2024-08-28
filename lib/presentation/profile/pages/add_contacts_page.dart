@@ -15,6 +15,12 @@ class _AddContactPageState extends State<AddContactPage> {
   final contactsBox = Hive.box('contacts');
 
   @override
+  void dispose() {
+    cardNumController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

@@ -43,6 +43,12 @@ class _EditableFieldState extends State<EditableField> {
   }
 
   @override
+  void dispose() {
+    widget.controller?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

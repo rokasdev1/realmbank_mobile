@@ -30,7 +30,7 @@ class TileWidget extends StatelessWidget {
               ),
               child: Icon(
                 icon,
-                color: Colors.white,
+                color: context.colorScheme.surface,
               ),
             ),
             4.heightBox,

@@ -15,6 +15,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final GlobalKey _columnKey = GlobalKey();
+  var sheetController = DraggableScrollableController();
   double _columnHeight = 0;
 
   @override
@@ -30,8 +31,13 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
+  void dispose() {
+    sheetController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    var sheetController = DraggableScrollableController();
     final today = DateTime.now();
 
     return LayoutBuilder(builder: (context, constraints) {

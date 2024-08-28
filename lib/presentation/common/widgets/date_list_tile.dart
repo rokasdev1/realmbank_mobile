@@ -43,7 +43,7 @@ class DateListTile extends StatelessWidget {
                     Text(
                       title,
                       style: const TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.bold),
+                          fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     Text(
                       Formatters.dateFormat(date),
