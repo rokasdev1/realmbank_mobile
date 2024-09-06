@@ -85,14 +85,17 @@ class UserCubit extends Cubit<UserState> {
   }
 
   // read users
-  Stream<List<RMUser>> getUsers() {
-    return FirebaseFirestore.instance.collection('users').snapshots().map(
-          (snapshot) => snapshot.docs
-              .map(
-                (doc) => RMUser.fromJson(doc.data()),
-              )
-              .toList(),
-        );
+  Future<List<RMUser>> getUsers() async {
+    try {
+      final usersSnapshot =
+          await FirebaseFirestore.instance.collection('users').get();
+      final users =
+          usersSnapshot.docs.map((doc) => RMUser.fromJson(doc.data())).toList();
+      return users;
+    } catch (e) {
+      log('UserCubit.getUsers: Error: $e');
+      return [];
+    }
   }
 
   Future<void> updateUser(RMUser user) async {

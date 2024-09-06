@@ -79,7 +79,7 @@ class ProfilePage extends StatelessWidget {
                         onTap: () {
                           AccountRoute().push();
                         },
-                        trailing: Icons.arrow_forward_ios_rounded,
+                        trailingIcon: Icons.arrow_forward_ios_rounded,
                       ),
                       4.heightBox,
                       ListTileWidget(
@@ -88,7 +88,7 @@ class ProfilePage extends StatelessWidget {
                         onTap: () {
                           ContactsRoute().push();
                         },
-                        trailing: Icons.arrow_forward_ios_rounded,
+                        trailingIcon: Icons.arrow_forward_ios_rounded,
                       ),
                       4.heightBox,
                       ListTileWidget(
@@ -97,7 +97,7 @@ class ProfilePage extends StatelessWidget {
                         onTap: () {
                           SettingsRoute().push();
                         },
-                        trailing: Icons.arrow_forward_ios_rounded,
+                        trailingIcon: Icons.arrow_forward_ios_rounded,
                       ),
                     ],
                   ),
@@ -122,7 +122,7 @@ class ProfilePage extends StatelessWidget {
                             ),
                           ).push();
                         },
-                        trailing: Icons.arrow_forward_ios_rounded,
+                        trailingIcon: Icons.arrow_forward_ios_rounded,
                       ),
                       4.heightBox,
                       ListTileWidget(
@@ -132,11 +132,11 @@ class ProfilePage extends StatelessWidget {
                           RequestMoneyRoute(
                             requestMoneyExtra: RequestMoneyExtra(
                               user: user,
-                              receiverCardNum: '',
+                              cardNum: '',
                             ),
                           ).push();
                         },
-                        trailing: Icons.arrow_forward_ios_rounded,
+                        trailingIcon: Icons.arrow_forward_ios_rounded,
                       ),
                       4.heightBox,
                       ListTileWidget(
@@ -149,7 +149,7 @@ class ProfilePage extends StatelessWidget {
                             secondaryMessage: 'this is a test',
                           );
                         },
-                        trailing: Icons.arrow_forward_ios_rounded,
+                        trailingIcon: Icons.arrow_forward_ios_rounded,
                       ),
                       4.heightBox,
                       ListTileWidget(
@@ -161,7 +161,7 @@ class ProfilePage extends StatelessWidget {
                                 'https://github.com/rokasdev1/realmbank_mobile'),
                           );
                         },
-                        trailing: Icons.arrow_forward_ios_rounded,
+                        trailingIcon: Icons.arrow_forward_ios_rounded,
                       ),
                     ],
                   ),

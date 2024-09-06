@@ -66,7 +66,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: Icon(
                     widget.icon,
-                    color: Colors.deepPurple.shade300,
+                    color: context.colorScheme.primary,
                     size: 28,
                   ),
                 ),
@@ -81,7 +81,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                       ),
                       4.widthBox,
                       VerticalDivider(
-                        color: Colors.grey.shade300,
+                        color: context.colorScheme.surfaceContainerHigh,
                         thickness: 1,
                         width: 1,
                         indent: 8,

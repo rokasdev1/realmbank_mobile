@@ -10,8 +10,12 @@ class Contact {
   @HiveField(1)
   final String cardNumber;
 
+  @HiveField(2)
+  int? key;
+
   Contact({
     required this.fullName,
     required this.cardNumber,
+    this.key,
   });
 }

@@ -7,14 +7,16 @@ class ListTileWidget extends StatelessWidget {
   final String text;
   final Color? foregroundColor;
   final Function()? onTap;
-  final IconData? trailing;
+  final IconData? trailingIcon;
+  final Widget? trailing;
   const ListTileWidget({
     super.key,
     required this.leading,
     required this.text,
     required this.onTap,
-    this.trailing,
+    this.trailingIcon,
     this.foregroundColor,
+    this.trailing,
   });
 
   @override
@@ -34,12 +36,12 @@ class ListTileWidget extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
-        trailing: trailing != null
+        trailing: trailingIcon != null
             ? Icon(
-                trailing,
+                trailingIcon,
                 size: 15,
                 color: foregroundColor ?? context.colorScheme.primary,
               )
-            : null);
+            : trailing);
   }
 }

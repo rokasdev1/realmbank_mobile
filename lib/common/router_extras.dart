@@ -2,16 +2,18 @@ import 'package:realmbank_mobile/data/models/user.dart';
 
 class SendMoneyExtra {
   SendMoneyExtra({
-    required this.sender,
-    required this.receiverCardNum,
+    this.sender,
+    this.receiverCardNum,
+    this.senderCardNum,
     this.receiver,
     this.amount,
     this.description,
     this.isRequest,
     this.requestId,
   });
-  final RMUser sender;
-  final String receiverCardNum;
+  final RMUser? sender;
+  final String? senderCardNum;
+  final String? receiverCardNum;
   final RMUser? receiver;
   final double? amount;
   final String? description;
@@ -22,10 +24,12 @@ class SendMoneyExtra {
 class RequestMoneyExtra {
   RequestMoneyExtra({
     required this.user,
-    required this.receiverCardNum,
+    required this.cardNum,
+    this.showQrOption = false,
   });
   final RMUser user;
-  final String receiverCardNum;
+  final String cardNum;
+  bool showQrOption = false;
 }
 
 class QrRouteExtra {

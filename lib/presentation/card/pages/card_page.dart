@@ -69,7 +69,7 @@ class CardPage extends StatelessWidget {
                         RequestMoneyRoute(
                           requestMoneyExtra: RequestMoneyExtra(
                             user: user,
-                            receiverCardNum: '',
+                            cardNum: '',
                           ),
                         ).push();
                       },

@@ -2,14 +2,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 
 class ThemeCubit extends Cubit<ThemeState> {
-  ThemeCubit() : super(LightThemeState());
+  ThemeCubit() : super(DarkThemeState());
 
   void init() {
     Hive.box('settings').watch(key: 'theme').listen((event) {
-      if (event.value == 'dark') {
-        emit(DarkThemeState());
-      } else {
+      if (event.value == 'light') {
         emit(LightThemeState());
+      } else {
+        emit(DarkThemeState());
       }
     });
   }

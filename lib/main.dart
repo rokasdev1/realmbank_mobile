@@ -25,6 +25,11 @@ late final RMRouter router;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   var directory = await getApplicationDocumentsDirectory();
   Hive.init(directory.path);
   Hive.registerAdapter(ContactAdapter());
@@ -32,10 +37,6 @@ void main() async {
   Hive.initFlutter();
   await Hive.openBox<Contact>('contacts');
   await Hive.openBox('settings');
-
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
 
   runApp(const MyApp());
 }
@@ -108,7 +109,6 @@ class _MyAppState extends State<MyApp> {
       ],
       child: BlocBuilder<ThemeCubit, ThemeState>(
         builder: (context, state) {
-          final isDarkTheme = state is DarkThemeState;
           return MaterialApp.router(
             builder: (context, child) {
               return Overlay(
@@ -131,7 +131,7 @@ class _MyAppState extends State<MyApp> {
               );
             },
             color: Colors.white,
-            theme: RMTheme.themeData(isDarkTheme),
+            theme: RMTheme.themeData(state is DarkThemeState),
             routerConfig: router.router,
           );
         },

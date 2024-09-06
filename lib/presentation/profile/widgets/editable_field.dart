@@ -78,7 +78,7 @@ class _EditableFieldState extends State<EditableField> {
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: Icon(
                     widget.icon,
-                    color: Colors.deepPurple.shade300,
+                    color: context.colorScheme.primary,
                     size: 28,
                   ),
                 ),

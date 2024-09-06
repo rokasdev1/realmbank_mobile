@@ -85,7 +85,8 @@ class RMRouter {
           final extra = state.extra! as RequestMoneyExtra;
           return RequestMoneyPage(
             user: extra.user,
-            receiverCardNum: extra.receiverCardNum,
+            cardNum: extra.cardNum,
+            showQrOption: extra.showQrOption,
           );
         },
       ),

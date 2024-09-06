@@ -12,11 +12,17 @@ import 'package:realmbank_mobile/presentation/common/utils/message_toaster.dart'
 import 'package:realmbank_mobile/presentation/common/widgets/big_button.dart';
 import 'package:realmbank_mobile/presentation/common/widgets/text_field_widget.dart';
 
+// ignore: must_be_immutable
 class RequestMoneyPage extends StatefulWidget {
-  const RequestMoneyPage(
-      {super.key, required this.user, required this.receiverCardNum});
+  RequestMoneyPage({
+    super.key,
+    required this.user,
+    required this.cardNum,
+    this.showQrOption = true,
+  });
   final RMUser user;
-  final String receiverCardNum;
+  final String cardNum;
+  bool showQrOption = true;
 
   @override
   State<RequestMoneyPage> createState() => _RequestMoneyPageState();
@@ -27,11 +33,13 @@ class _RequestMoneyPageState extends State<RequestMoneyPage> {
   final amountController = TextEditingController();
   final descriptionController = TextEditingController();
   bool withQR = false;
+  bool canEdit = true;
 
   @override
   void initState() {
-    if (widget.receiverCardNum != '') {
-      cardNumController.text = widget.receiverCardNum.substring(2);
+    if (widget.cardNum != '') {
+      canEdit = false;
+      cardNumController.text = widget.cardNum.substring(2);
     }
     super.initState();
   }
@@ -69,6 +77,7 @@ class _RequestMoneyPageState extends State<RequestMoneyPage> {
                 if (withQR == false) ...[
                   TextFieldWidget(
                     keyboardType: TextInputType.number,
+                    canEdit: canEdit,
                     prefixText: 'RM',
                     topText: 'Request from',
                     longerHintText: false,
@@ -165,19 +174,21 @@ class _RequestMoneyPageState extends State<RequestMoneyPage> {
                       ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 25),
-              child: BigButton(
-                label:
-                    withQR ? 'Request directly instead' : 'Request via QR code',
-                onTap: () {
-                  setState(() {
-                    withQR = !withQR;
-                  });
-                },
-                inverted: true,
+            if (widget.showQrOption == true)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 25),
+                child: BigButton(
+                  label: withQR
+                      ? 'Request directly instead'
+                      : 'Request via QR code',
+                  onTap: () {
+                    setState(() {
+                      withQR = !withQR;
+                    });
+                  },
+                  inverted: true,
+                ),
               ),
-            ),
           ],
         ),
       ),

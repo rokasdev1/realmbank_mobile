@@ -14,16 +14,18 @@ import 'package:realmbank_mobile/presentation/common/widgets/text_field_widget.d
 class SendMoneyPage extends StatefulWidget {
   const SendMoneyPage({
     super.key,
-    required this.sender,
-    required this.receiverCardNum,
+    this.sender,
+    this.receiverCardNum,
+    this.senderCardNum,
     this.receiver,
     this.amount,
     this.description,
     this.isRequest,
     this.requestId,
   });
-  final RMUser sender;
-  final String receiverCardNum;
+  final RMUser? sender;
+  final String? senderCardNum;
+  final String? receiverCardNum;
   final RMUser? receiver;
   final double? amount;
   final String? description;
@@ -45,8 +47,8 @@ class _SendMoneyPageState extends State<SendMoneyPage> {
   void initState() {
     isRequest = widget.isRequest ?? false;
     canEdit = isRequest ? false : true;
-    if (widget.receiverCardNum != '') {
-      cardNumController.text = widget.receiverCardNum.substring(2);
+    if (widget.receiverCardNum != '' || widget.receiver != null) {
+      cardNumController.text = widget.receiverCardNum?.substring(2) ?? '';
     }
     if (widget.receiver != null) {
       cardNumController.text = widget.receiver!.cardNumber.substring(2);
@@ -118,11 +120,16 @@ class _SendMoneyPageState extends State<SendMoneyPage> {
               label: isRequest ? 'Accept Request' : 'Send',
               onTap: () async {
                 var receiver = widget.receiver;
+                var sender = widget.sender;
                 if (widget.receiver == null) {
                   receiver = await FindTools.findUserWithCardNum(
                       'RM${cardNumController.text}');
                 }
-                if (receiver == null || receiver.uid == widget.sender.uid) {
+                if (widget.sender == null) {
+                  sender = await FindTools.findUserWithCardNum(
+                      'RM${widget.senderCardNum}');
+                }
+                if (receiver == null || receiver.uid == sender!.uid) {
                   MessageToaster.showMessage(
                     message: 'User not found',
                     toastType: ToastType.error,
@@ -145,7 +152,7 @@ class _SendMoneyPageState extends State<SendMoneyPage> {
                   return;
                 }
                 context.read<TransactionCubit>().sendMoney(
-                      sender: widget.sender,
+                      sender: sender,
                       receiver: receiver,
                       amount: double.parse(amountController.text),
                       description: descriptionController.text,
