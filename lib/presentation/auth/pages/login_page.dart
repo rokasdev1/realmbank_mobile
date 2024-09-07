@@ -57,12 +57,14 @@ class _LoginPageState extends State<LoginPage> {
                         TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
                 16.heightBox,
                 TextFieldWidget(
+                  maxLength: 50,
                   controller: emailController,
                   label: 'Email',
                   icon: Icons.email_outlined,
                 ),
                 16.heightBox,
                 TextFieldWidget(
+                  maxLength: 50,
                   controller: passwordController,
                   label: 'Password',
                   icon: Icons.lock_outline,

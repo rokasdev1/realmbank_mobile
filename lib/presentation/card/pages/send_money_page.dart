@@ -90,6 +90,7 @@ class _SendMoneyPageState extends State<SendMoneyPage> {
             ),
             36.heightBox,
             TextFieldWidget(
+              maxLength: 20,
               canEdit: widget.receiverCardNum != '' ? false : canEdit,
               keyboardType: TextInputType.number,
               longerHintText: false,
@@ -100,6 +101,7 @@ class _SendMoneyPageState extends State<SendMoneyPage> {
             ),
             8.heightBox,
             TextFieldWidget(
+              maxLength: 20,
               canEdit: canEdit,
               keyboardType: TextInputType.number,
               longerHintText: false,
@@ -109,6 +111,7 @@ class _SendMoneyPageState extends State<SendMoneyPage> {
             ),
             8.heightBox,
             TextFieldWidget(
+              maxLength: 50,
               canEdit: canEdit,
               longerHintText: false,
               controller: descriptionController,

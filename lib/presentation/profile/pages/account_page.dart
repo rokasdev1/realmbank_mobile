@@ -21,10 +21,10 @@ class _AccountPageState extends State<AccountPage> {
   final lastNameController = TextEditingController();
 
   @override
-  void deactivate() {
+  void dispose() {
+    super.dispose();
     nameController.dispose();
     lastNameController.dispose();
-    super.deactivate();
   }
 
   @override

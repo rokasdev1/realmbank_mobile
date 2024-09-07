@@ -76,6 +76,7 @@ class _RequestMoneyPageState extends State<RequestMoneyPage> {
                 36.heightBox,
                 if (withQR == false) ...[
                   TextFieldWidget(
+                    maxLength: 20,
                     keyboardType: TextInputType.number,
                     canEdit: canEdit,
                     prefixText: 'RM',
@@ -88,6 +89,7 @@ class _RequestMoneyPageState extends State<RequestMoneyPage> {
                   8.heightBox,
                 ],
                 TextFieldWidget(
+                  maxLength: 20,
                   keyboardType: TextInputType.number,
                   longerHintText: false,
                   controller: amountController,
@@ -96,6 +98,7 @@ class _RequestMoneyPageState extends State<RequestMoneyPage> {
                 ),
                 8.heightBox,
                 TextFieldWidget(
+                  maxLength: 50,
                   longerHintText: false,
                   controller: descriptionController,
                   label: 'Description',

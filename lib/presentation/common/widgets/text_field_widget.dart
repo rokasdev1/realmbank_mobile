@@ -14,7 +14,8 @@ class TextFieldWidget extends StatefulWidget {
       this.prefixText,
       this.topText,
       this.trailing,
-      this.canEdit = true});
+      this.canEdit = true,
+      required this.maxLength});
   final TextEditingController controller;
   final String label;
   final IconData icon;
@@ -25,6 +26,7 @@ class TextFieldWidget extends StatefulWidget {
   final String? prefixText;
   final String? topText;
   bool? canEdit = true;
+  final int maxLength;
 
   @override
   State<TextFieldWidget> createState() => _TextFieldWidgetState();
@@ -92,6 +94,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                   ),
                 Expanded(
                   child: TextField(
+                    maxLength: widget.maxLength,
                     enabled: widget.canEdit ?? true,
                     keyboardType: widget.keyboardType,
                     controller: widget.controller,

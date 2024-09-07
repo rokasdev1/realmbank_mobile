@@ -1,5 +1,8 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_discord_logger/flutter_discord_logger.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:realmbank_mobile/common/router_extras.dart';
 import 'package:realmbank_mobile/common/routes.dart';
@@ -8,7 +11,10 @@ import 'package:realmbank_mobile/data/models/user.dart';
 import 'package:realmbank_mobile/presentation/common/providers/auth_cubit.dart';
 import 'package:realmbank_mobile/presentation/common/utils/extensions.dart';
 import 'package:realmbank_mobile/presentation/common/utils/message_toaster.dart';
+import 'package:realmbank_mobile/presentation/common/widgets/big_button.dart';
 import 'package:realmbank_mobile/presentation/common/widgets/list_tile_widget.dart';
+import 'package:realmbank_mobile/presentation/common/widgets/text_field_widget.dart';
+import 'package:realmbank_mobile/presentation/profile/widgets/review_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -140,13 +146,12 @@ class ProfilePage extends StatelessWidget {
                       ),
                       4.heightBox,
                       ListTileWidget(
-                        leading: Icons.credit_card,
-                        text: 'Card info',
+                        leading: Icons.rate_review_outlined,
+                        text: 'Review',
                         onTap: () {
-                          MessageToaster.showMessage(
-                            message: 'TEST',
-                            toastType: ToastType.success,
-                            secondaryMessage: 'this is a test',
+                          showDialog(
+                            context: context,
+                            builder: (context) => ReviewWidget(),
                           );
                         },
                         trailingIcon: Icons.arrow_forward_ios_rounded,

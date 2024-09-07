@@ -45,6 +45,7 @@ class _AddUserFieldState extends State<AddUserField> {
     return Column(
       children: [
         TextFieldWidget(
+          maxLength: 20,
           controller: widget.controller,
           label: 'Card Number',
           prefixText: 'RM',
